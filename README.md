@@ -1,4 +1,4 @@
-Calculator App
+Roshambo
 
 Simple GUI of the famous 'Rock, Paper, Scissors' game
 
