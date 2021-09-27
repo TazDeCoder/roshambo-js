@@ -16,7 +16,7 @@ html {
   font-size: 16px;
 }
 body {
-  background-color: #fff;
+  background-color: #6d8b54;
 }
 nav,
 button,
@@ -31,4 +31,64 @@ video,
 iframe {
   max-width: 100%;
   height: auto;
+}
+:root {
+  --btn-background-color: #e4e2e2;
+}
+/* Content */
+
+/* Main */
+#main {
+  width: 100%;
+  padding: 5px 0;
+}
+#title {
+  font-size: 3rem;
+  margin: 12px;
+}
+#btn--throw {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Button selection */
+#btn-selection {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+}
+.btn {
+  width: 30%;
+  padding: 12px;
+  border: 1px solid #000;
+  background-color: var(--btn-background-color);
+}
+
+/* Game section */
+#game-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 24px;
+}
+.player__name {
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-align: center;
+}
+.player__hand {
+  width: 75%;
+  margin: 24px;
+}
+#hand--0 {
+  float: left;
+}
+#hand--1 {
+  float: right;
+}
+.hidden {
+  display: none;
+}
+.invisible {
+  visibility: hidden;
 }

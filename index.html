@@ -17,6 +17,33 @@
     <title>Calculator Game</title>
   </head>
   <body>
+    <main id="main">
+      <h1 id="title">Calculator</h1>
+      <section id="btn-selection">
+        <button class="btn btn--active">Rock 🧱</button>
+        <button class="btn">Paper 📰</button>
+        <button class="btn">Scissors✂</button>
+      </section>
+      <section id="game-section">
+        <div class="player" id="player--0">
+          <h2 class="player__name" id="name--0">Player 1</h2>
+          <img
+            class="player__hand"
+            id="hand--0"
+            src="./assets/images/rock-right.png"
+          />
+        </div>
+        <div class="player" id="player--1">
+          <h2 class="player__name" id="name--1">CPU</h2>
+          <img
+            class="player__hand invisible"
+            id="hand--1"
+            src="./assets/images/rock-left.png"
+          />
+        </div>
+      </section>
+      <button class="btn" id="btn--throw">👋Throw!</button>
+    </main>
     <script src="./app.js"></script>
   </body>
 </html>
