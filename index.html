@@ -14,20 +14,29 @@
       type="text/css"
       href="./assets/stylesheets/style.css"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
     <title>Calculator Game</title>
   </head>
   <body>
     <main id="main">
       <h1 id="title">Roshambo</h1>
-      <h3 id="game--label">Select an Element and Throw When You're Ready!</h3>
-      <section id="btn-selection">
+      <!-- User given options to select an element -->
+      <section class="btn-selection">
         <button class="btn btn--active" id="btn--rock">Rock 🧱</button>
         <button class="btn" id="btn--paper">Paper 📰</button>
         <button class="btn" id="btn--scissors">Scissors ✂</button>
       </section>
+      <label id="game--label" class="invisible" for="game-section"
+        >Select an Element!</label
+      >
+      <!-- Displays the game output to user -->
       <section id="game-section">
         <div class="player" id="player--0">
           <h2 class="player__name" id="name--0">Player 1</h2>
+          <p class="player__score" id="score--0">0</p>
           <img
             class="player__hand invisible"
             id="hand--0"
@@ -36,6 +45,7 @@
         </div>
         <div class="player" id="player--1">
           <h2 class="player__name" id="name--1">CPU</h2>
+          <p class="player__score" id="score--1">0</p>
           <img
             class="player__hand invisible"
             id="hand--1"
@@ -43,9 +53,34 @@
           />
         </div>
       </section>
-      <button class="btn" id="btn--throw">Throw! 👋🧱</button>
-      <button class="btn" id="btn--reset">Reset</button>
+      <!-- Extra buttons functions -->
+      <section class="btn-selection">
+        <button class="btn" id="btn--throw">Throw! 👋🧱</button>
+        <button class="btn" id="btn--reset">Reset</button>
+      </section>
+      <!-- Footer -->
+      <footer id="footer">
+        <a href="https://www.freepik.com/vectors/background"
+          >Hand vectors created by DrawingMyDiary - www.freepik.com</a
+        >
+      </footer>
     </main>
+    <!-- Displays the start-up game popup -->
+    <div class="modal">
+      <button id="btn--close">&times;</button>
+      <h1>Welcome! 😃</h1>
+      <p>The Rules are Simple!</p>
+      <ul>
+        <li>Rock 🧱 Beats ✂ Scissors</li>
+        <li>Scissors ✂ Beats 📰 Paper</li>
+        <li>Paper 📰 Beats 🧱 Rock</li>
+      </ul>
+      <section class="btn-selection">
+        <button class="btn btn--active" id="btn--easy">Easy 👶</button>
+        <button class="btn btn--invalid" id="btn--hard">Hard 💪</button>
+      </section>
+    </div>
+    <div class="overlay"></div>
     <script src="./app.js"></script>
   </body>
 </html>

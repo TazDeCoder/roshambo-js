@@ -12,7 +12,7 @@ body {
   height: 100%;
 }
 html {
-  font-family: Helvetica, Arial, Sans-Serif;
+  font-family: "Lobster", cursive;
   font-size: 16px;
 }
 body {
@@ -34,48 +34,47 @@ iframe {
 }
 :root {
   --main-btn-background-color: #e4e2e2;
+  --main-background-color: #ffffff;
   --fore-btn-background-color: #5a5a5a;
 }
 /* Content */
-
 /* Main */
 #main {
   width: 100%;
+  height: 100%;
   padding: 5px 0;
+  font-size: 1rem;
+  overflow: auto;
 }
 #title {
-  font-size: 3rem;
+  font-size: 3em;
   margin: 12px;
 }
-#game--label {
-  max-width: 220px;
-  text-align: center;
-  margin: 0 auto;
-}
-#btn--throw,
-#btn--reset {
-  display: block;
-  margin: 2px auto;
-  font-weight: 700;
-}
-
 /* Button selection */
-#btn-selection {
+.btn-selection {
   display: flex;
   justify-content: center;
+  width: 100%;
   margin: 5px;
+  font-size: 1em;
 }
 .btn {
   width: 30%;
   padding: 12px;
   border: 2px solid #000;
-  font-size: 1.2rem;
+  font-size: 1.2em;
   background-color: var(--main-btn-background-color);
 }
 .btn:hover {
   --main-btn-background-color: #cfcdcd;
   background-color: var(--main-btn-background-color);
 }
+#btn--throw,
+#btn--reset {
+  margin: 2px auto;
+  font-weight: 700;
+}
+/* Button modifiers */
 .btn--active {
   background-color: var(--fore-btn-background-color);
 }
@@ -83,29 +82,106 @@ iframe {
   --fore-btn-background-color: #4e4e4e;
   background-color: var(--fore-btn-background-color);
 }
-
+.btn--invalid:hover {
+  cursor: not-allowed;
+}
 /* Game section */
+#game--label {
+  display: block;
+  width: 90%;
+  padding: 5px;
+  margin: 12px auto;
+  font-weight: 700;
+  text-align: center;
+  background-color: var(--main-background-color);
+}
 #game-section {
   display: flex;
   justify-content: center;
   width: 100%;
   margin-top: 24px;
+  font-size: 1em;
 }
 .player__name {
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.4em;
   text-align: center;
+}
+.player__score {
+  margin: 5px;
+  font-size: 1.4em;
 }
 .player__hand {
   width: 75%;
   margin: 24px;
+  border-radius: 50%;
+  border: 3px solid #000;
 }
-#hand--0 {
-  float: left;
+#score--0,
+#score--1 {
+  font-weight: 700;
+  text-align: center;
 }
-#hand--1 {
-  float: right;
+/* Footer */
+#footer {
+  margin-top: 22px;
+  width: 100%;
+  text-align: center;
 }
+#footer a {
+  padding: 12px;
+  color: #333;
+  text-decoration: none;
+}
+#footer a:hover {
+  color: rgb(160, 160, 160);
+  text-decoration: underline;
+}
+/* Start game popup */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: white;
+  box-shadow: 0 3em 5em rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+.modal * {
+  padding: 2px;
+  margin: 5px;
+}
+.modal ul > li {
+  margin: 2px;
+  font-size: 0.9em;
+  text-align: center;
+  list-style-type: disc;
+}
+#btn--close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  font-size: 48px;
+  color: #333;
+  background: none;
+  cursor: pointer;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+/* Class modifiers */
 .hidden {
   display: none;
 }
