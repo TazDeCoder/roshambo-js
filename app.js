@@ -24,12 +24,6 @@ const overlay = document.querySelector(".overlay");
 // Initial variables
 let scores, rounds, playerName1, playerHand1, playerHand2, flag;
 
-function generateHand() {
-  const hands = ["rock", "paper", "scissors"];
-  const index = Math.floor(Math.random() * hands.length);
-  return hands[index];
-}
-
 function init() {
   // Reset game values
   rounds = 5;
@@ -50,7 +44,7 @@ function init() {
   throwBtn.textContent = "Throw! 👋🧱";
 }
 
-function startup() {
+function loadGame() {
   playerName1 = prompt("Ready!? Enter Player 1 Name: ");
   playerName2 = "CPU";
   if (playerName1 === null) return;
@@ -62,6 +56,18 @@ function startup() {
   overlay.classList.add("hidden");
 }
 
+function generateHand() {
+  const hands = ["rock", "paper", "scissors"];
+  const index = Math.floor(Math.random() * hands.length);
+  return hands[index];
+}
+
+function displayHand(hand) {
+  hand0El.src = `./assets/images/${hand}-right.png`;
+  hand0El.classList.add("invisible");
+  hand1El.classList.add("invisible");
+}
+
 // Button functionalities
 rockBtn.addEventListener("click", function () {
   if (flag) {
@@ -69,9 +75,7 @@ rockBtn.addEventListener("click", function () {
     rockBtn.classList.add("btn--active");
     paperBtn.classList.remove("btn--active");
     scissorsBtn.classList.remove("btn--active");
-    hand0El.src = `./assets/images/${playerHand1}-right.png`;
-    hand0El.classList.add("invisible");
-    hand1El.classList.add("invisible");
+    displayHand(playerHand1);
     throwBtn.textContent = "Throw! 👋🧱";
   }
 });
@@ -81,9 +85,7 @@ paperBtn.addEventListener("click", function () {
     paperBtn.classList.add("btn--active");
     rockBtn.classList.remove("btn--active");
     scissorsBtn.classList.remove("btn--active");
-    hand0El.src = `./assets/images/${playerHand1}-right.png`;
-    hand0El.classList.add("invisible");
-    hand1El.classList.add("invisible");
+    displayHand(playerHand1);
     throwBtn.textContent = "Throw! 👋📰";
   }
 });
@@ -93,9 +95,7 @@ scissorsBtn.addEventListener("click", function () {
     scissorsBtn.classList.add("btn--active");
     paperBtn.classList.remove("btn--active");
     rockBtn.classList.remove("btn--active");
-    hand0El.src = `./assets/images/${playerHand1}-right.png`;
-    hand0El.classList.add("invisible");
-    hand1El.classList.add("invisible");
+    displayHand(playerHand1);
     throwBtn.textContent = "Throw! 👋✂";
   }
 });
@@ -106,7 +106,11 @@ throwBtn.addEventListener("click", function () {
     hand1El.classList.remove("invisible");
     hand0El.classList.remove("invisible");
 
-    if (
+    // Checks if player 1 hand matches player 2
+    if (playerHand1 === playerHand2) {
+      gameLbl.textContent = "This Round is a Draw!";
+      // Checks if player 1 beats player 2
+    } else if (
       (playerHand1 === "rock" && playerHand2 === "scissors") ||
       (playerHand1 === "scissors" && playerHand2 === "paper") ||
       (playerHand1 === "paper" && playerHand2 === "rock")
@@ -114,8 +118,7 @@ throwBtn.addEventListener("click", function () {
       gameLbl.textContent = `${playerName1} Wins This Round!`;
       scores[0] += 1;
       score0El.textContent = scores[0];
-    } else if (playerHand1 === playerHand2) {
-      gameLbl.textContent = "This Round is a Draw!";
+      // Or otherwise, player 2 beats player 1
     } else {
       gameLbl.textContent = `${playerName2} Wins This Round!`;
       scores[1] += 1;
@@ -130,12 +133,12 @@ throwBtn.addEventListener("click", function () {
       flag = false;
     }
 
-    console.log(scores);
+    // console.log(scores);
   }
 });
 resetBtn.addEventListener("click", init);
-closeBtn.addEventListener("click", startup);
-overlay.addEventListener("click", startup);
+closeBtn.addEventListener("click", loadGame);
+overlay.addEventListener("click", loadGame);
 
 // Main code execution
 init();
