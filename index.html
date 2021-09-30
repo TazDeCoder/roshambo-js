@@ -18,13 +18,13 @@
       href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
       rel="stylesheet"
     />
-    <title>Calculator Game</title>
+    <title>Roshambo</title>
   </head>
   <body>
     <main id="main">
       <h1 id="title">Roshambo</h1>
-      <!-- User given options to select an element -->
-      <section class="btn-selection">
+      <!-- Buttons to select hand -->
+      <section class="btn-selection" id="btn--hands">
         <button class="btn btn--active" id="btn--rock">Rock 🧱</button>
         <button class="btn" id="btn--paper">Paper 📰</button>
         <button class="btn" id="btn--scissors">Scissors ✂</button>
@@ -32,7 +32,7 @@
       <label id="game--label" class="invisible" for="game-section"
         >Select an Element!</label
       >
-      <!-- Displays the game output to user -->
+      <!-- Displays the game to user -->
       <section id="game-section">
         <div class="player" id="player--0">
           <h2 class="player__name" id="name--0">Player 1</h2>
@@ -53,32 +53,37 @@
           />
         </div>
       </section>
-      <!-- Extra buttons functions -->
-      <section class="btn-selection">
+      <!-- Buttons for options -->
+      <section class="btn-selection" id="btn--options">
         <button class="btn" id="btn--throw">Throw! 👋🧱</button>
         <button class="btn" id="btn--reset">Reset</button>
       </section>
       <!-- Footer -->
       <footer id="footer">
+        <!-- MUST INCLUDE -->
         <a href="https://www.freepik.com/vectors/background"
           >Hand vectors created by DrawingMyDiary - www.freepik.com</a
         >
       </footer>
     </main>
-    <!-- Displays the start-up game popup -->
+    <!-- Displays the game start-up popup -->
     <div class="modal">
-      <button id="btn--close">&times;</button>
-      <h1>Welcome! 😃</h1>
-      <p>The Rules are Simple!</p>
-      <ul>
-        <li>Rock 🧱 Beats ✂ Scissors</li>
-        <li>Scissors ✂ Beats 📰 Paper</li>
-        <li>Paper 📰 Beats 🧱 Rock</li>
-      </ul>
+      <section id="welcome-msg">
+        <h1>Welcome! 😃</h1>
+        <p>The Rules are Simple!</p>
+        <ul>
+          <li>Rock 🧱 Beats ✂ Scissors</li>
+          <li>Scissors ✂ Beats 📰 Paper</li>
+          <li>Paper 📰 Beats 🧱 Rock</li>
+        </ul>
+      </section>
+      <label id="mode--label" for="btn-selection">Select a Diffculty!</label>
       <section class="btn-selection">
+        <!-- NOTE: plan to include these two game logic in the future -->
         <button class="btn btn--active" id="btn--easy">Easy 👶</button>
         <button class="btn btn--invalid" id="btn--hard">Hard 💪</button>
       </section>
+      <button class="btn" id="btn--close">&times;</button>
     </div>
     <div class="overlay"></div>
     <script src="./app.js"></script>
