@@ -2,7 +2,7 @@
 
 ## Demo Preview
 
-![Demo Preview](/assets/images/demo-preview.gif)
+![Demo Preview](/assets/images/demo-preview.png)
 
 ## Description
 
