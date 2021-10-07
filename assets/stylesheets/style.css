@@ -144,6 +144,12 @@ iframe {
   font-size: 1.4em;
   text-align: center;
 }
+#name--0 {
+  color: #f00;
+}
+#name--1 {
+  color: #00f;
+}
 .player__score {
   margin: 5px;
   font-size: 1.4em;
