@@ -92,11 +92,15 @@ function isGameWinner() {
   if (game.scores.player === game.rounds) {
     gameLbl.textContent = `${playerName} Wins 🏆!`;
     gameLbl.style.color = "#f00";
+    displayHands();
     game.flag = false;
+    return true;
   } else if (game.scores.computer === game.rounds) {
     gameLbl.textContent = "CPU Wins 🤖!";
     gameLbl.style.color = "#00f";
+    displayHands();
     game.flag = false;
+    return true;
   }
   return false;
 }
