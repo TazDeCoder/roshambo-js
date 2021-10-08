@@ -8,13 +8,21 @@
 
 Player versus CPU where the first to win 5 rounds wins the game!
 
+**Features:**
+- Modern User Interface
+- Intuitive Design
+
+**TASK-LIST:**
+- [ ] Keyboard Support
+- [ ] Difficulty Mode
+
 ## Installation
 
 To use this project, first clone the repo on your device using the command below:
 
 `git init`
 
-`https://github.com/Tarwat-Uddin/roshambo-js.git`
+`https://github.com/tarwat-uddin/roshambo-js.git`
 
 ## License
 
