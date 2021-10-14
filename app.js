@@ -52,7 +52,10 @@ function init() {
   gameLbl.style.color = "#000";
   score0Lbl.textContent = game.scores.player;
   score1Lbl.textContent = game.scores.computer;
-  throwBtn.textContent = `Throw 👋 ${currentHand.textContent}!`;
+  throwBtn.textContent = `Throw 👋 ${currentHand.textContent
+    .slice(0, 15)
+    .concat("(Enter)")}!`;
+  console.log(currentHand.textContent.length);
 }
 
 function loadGame() {
@@ -71,7 +74,9 @@ function updateGame(self) {
   currentHand = self;
   hand0Img.src = `./assets/images/${game.playerHand1}-right.png`;
   hand1Img.classList.add("invisible");
-  throwBtn.textContent = `Throw 👋 ${currentHand.textContent}!`;
+  throwBtn.textContent = `Throw 👋 ${currentHand.textContent
+    .slice(0, 15)
+    .concat("(Enter)")}!`;
 }
 
 function generateHand() {
@@ -132,12 +137,6 @@ for (const btn of handBtns) {
   btn.addEventListener("click", function () {
     if (game.flag) updateGame(this);
   });
-  btn.addEventListener("keyup", function (e) {
-    if (game.flag && e.key === "Enter" && !isGameWinner()) {
-      displayHands();
-      calcRoundWinner();
-    }
-  });
 }
 
 throwBtn.addEventListener("click", function () {
@@ -150,6 +149,24 @@ throwBtn.addEventListener("click", function () {
 resetBtn.addEventListener("click", init);
 closeBtn.addEventListener("click", loadGame);
 overlay.addEventListener("click", loadGame);
+
+// --- KEYBOARD SUPPORT
+document.addEventListener("keyup", function (e) {
+  if (game.flag && e.key === "Enter" && !isGameWinner()) {
+    displayHands();
+    calcRoundWinner();
+  }
+  if (game.flag) {
+    switch (e.key.toLowerCase()) {
+      case "q":
+        return updateGame(rockBtn);
+      case "w":
+        return updateGame(paperBtn);
+      case "e":
+        return updateGame(scissorsBtn);
+    }
+  }
+});
 
 // Main code execution
 init();
