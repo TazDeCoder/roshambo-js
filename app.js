@@ -1,7 +1,7 @@
 "use scrict";
 
 // Selecting elements
-// Buttons
+// --- BUTTONS
 const handBtns = document
   .querySelector("#btn--hands")
   .getElementsByClassName("btn");
@@ -9,15 +9,15 @@ const [rockBtn, paperBtn, scissorsBtn] = handBtns;
 const throwBtn = document.querySelector("#btn--throw");
 const resetBtn = document.querySelector("#btn--reset");
 const closeBtn = document.querySelector("#btn--close");
-// Labels
+// --- LABELS
 const gameLbl = document.querySelector("#game--label");
 const name0Lbl = document.querySelector("#name--0");
 const score0Lbl = document.querySelector("#score--0");
 const score1Lbl = document.querySelector("#score--1");
-// Images
+// ---IMAGES
 const hand0Img = document.querySelector("#hand--0");
 const hand1Img = document.querySelector("#hand--1");
-// Misc.
+// --- MISC.
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 
@@ -25,14 +25,8 @@ const overlay = document.querySelector(".overlay");
 let playerName, currentHand;
 
 const game = {
-  playerHand1: rockBtn.value,
-  playerHand2: rockBtn.value,
-  scores: {
-    player: 0,
-    computer: 0,
-  },
+  scores: {},
   rounds: 5,
-  flag: true,
 };
 
 function init() {
@@ -47,22 +41,21 @@ function init() {
   rockBtn.classList.add("btn--active");
   paperBtn.classList.remove("btn--active");
   scissorsBtn.classList.remove("btn--active");
-  hand1Img.classList.add("invisible");
   gameLbl.textContent = "Select an Element!";
   gameLbl.style.color = "#000";
   score0Lbl.textContent = game.scores.player;
   score1Lbl.textContent = game.scores.computer;
+  hand1Img.src = `./assets/images/default-hand.png`;
   throwBtn.textContent = `Throw 👋 ${currentHand.textContent
     .slice(0, 15)
     .concat("(Enter)")}!`;
-  console.log(currentHand.textContent.length);
 }
 
 function loadGame() {
-  // Loads first time app open
-  playerName = prompt("Ready!? Enter Player Name: ");
-  if (!playerName) return alert("MUST SPEICFY NAME!");
-  name0Lbl.textContent = playerName;
+  (() => init())();
+  // playerName = prompt("Ready!? Enter Player Name: ");
+  // if (!playerName) return alert("MUST SPEICFY NAME!");
+  // name0Lbl.textContent = playerName;
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
 }
@@ -73,10 +66,27 @@ function updateGame(self) {
   currentHand.classList.toggle("btn--active");
   currentHand = self;
   hand0Img.src = `./assets/images/${game.playerHand1}-right.png`;
-  hand1Img.classList.add("invisible");
+  hand1Img.src = `./assets/images/default-hand.png`;
   throwBtn.textContent = `Throw 👋 ${currentHand.textContent
     .slice(0, 15)
     .concat("(Enter)")}!`;
+}
+
+function isGameWinner() {
+  // Checks if either player or CPU wins the game
+  if (
+    game.scores.player === game.rounds ||
+    game.scores.computer === game.rounds
+  ) {
+    const msg =
+      game.scores.player === game.rounds
+        ? (gameLbl.textContent = `${playerName} Wins 🏆!`)
+        : (gameLbl.textContent = "CPU Wins 🤖!");
+    displayHands();
+    game.flag = false;
+    return true;
+  }
+  return false;
 }
 
 function generateHand() {
@@ -89,28 +99,9 @@ function generateHand() {
 function displayHands() {
   game.playerHand2 = generateHand();
   hand1Img.src = `./assets/images/${game.playerHand2}-left.png`;
-  hand1Img.classList.remove("invisible");
 }
 
-function isGameWinner() {
-  // Checks if either player or CPU wins the game
-  if (game.scores.player === game.rounds) {
-    gameLbl.textContent = `${playerName} Wins 🏆!`;
-    gameLbl.style.color = "#f00";
-    displayHands();
-    game.flag = false;
-    return true;
-  } else if (game.scores.computer === game.rounds) {
-    gameLbl.textContent = "CPU Wins 🤖!";
-    gameLbl.style.color = "#00f";
-    displayHands();
-    game.flag = false;
-    return true;
-  }
-  return false;
-}
-
-function calcRoundWinner() {
+function throwHands() {
   // Checks if player 1 hand matches player 2
   if (game.playerHand1 === game.playerHand2) {
     gameLbl.textContent = "This Round is a Draw!";
@@ -140,9 +131,9 @@ for (const btn of handBtns) {
 }
 
 throwBtn.addEventListener("click", function () {
-  if (game.flag && !isGameWinner()) {
-    displayHands();
-    calcRoundWinner();
+  if (game.flag) {
+    throwHands();
+    if (!isGameWinner()) displayHands();
   }
 });
 
@@ -152,12 +143,12 @@ overlay.addEventListener("click", loadGame);
 
 // --- KEYBOARD SUPPORT
 document.addEventListener("keyup", function (e) {
-  if (game.flag && e.key === "Enter" && !isGameWinner()) {
-    displayHands();
-    calcRoundWinner();
-  }
   if (game.flag) {
     switch (e.key.toLowerCase()) {
+      case "enter":
+        throwHands();
+        if (!isGameWinner()) displayHands();
+        break;
       case "q":
         return updateGame(rockBtn);
       case "w":
@@ -167,6 +158,3 @@ document.addEventListener("keyup", function (e) {
     }
   }
 });
-
-// Main code execution
-init();
