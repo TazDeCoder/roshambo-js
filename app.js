@@ -27,12 +27,41 @@ let playerName, currentHand;
 const game = {
   scores: {},
   rounds: 5,
+  winConditions: {
+    player: [
+      {
+        hand1: "rock",
+        hand2: "scissors",
+      },
+      {
+        hand1: "scissors",
+        hand2: "paper",
+      },
+      {
+        hand1: "paper",
+        hand2: "rock",
+      },
+    ],
+    computer: [
+      {
+        hand1: "scissors",
+        hand2: "rock",
+      },
+      {
+        hand1: "paper",
+        hand2: "scissors",
+      },
+      {
+        hand1: "rock",
+        hand2: "paper",
+      },
+    ],
+  },
 };
 
 function init() {
   // Reset game values
   game.playerHand1 = rockBtn.value;
-  game.playerHand2 = rockBtn.value;
   game.scores.player = 0;
   game.scores.computer = 0;
   game.flag = true;
@@ -45,31 +74,59 @@ function init() {
   gameLbl.style.color = "#000";
   score0Lbl.textContent = game.scores.player;
   score1Lbl.textContent = game.scores.computer;
-  hand1Img.src = `./assets/images/default-hand.png`;
-  throwBtn.textContent = `Throw 👋 ${currentHand.textContent
-    .slice(0, 15)
-    .concat("(Enter)")}!`;
+  updateGUI();
 }
 
+function updateGame() {
+  displayHand();
+  throwHands();
+  isGameWinner();
+}
+
+// Game GUI functionalities
 function loadGame() {
   (() => init())();
-  // playerName = prompt("Ready!? Enter Player Name: ");
-  // if (!playerName) return alert("MUST SPEICFY NAME!");
-  // name0Lbl.textContent = playerName;
+  playerName = prompt("Ready! Enter Player Name: ");
+  if (!playerName) return alert("MUST SPECIFY A NAME!");
+  name0Lbl.textContent = playerName;
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
 }
 
-function updateGame(self) {
-  game.playerHand1 = self.value;
-  self.classList.toggle("btn--active");
-  currentHand.classList.toggle("btn--active");
-  currentHand = self;
+function updateGUI() {
   hand0Img.src = `./assets/images/${game.playerHand1}-right.png`;
   hand1Img.src = `./assets/images/default-hand.png`;
   throwBtn.textContent = `Throw 👋 ${currentHand.textContent
     .slice(0, 15)
     .concat("(Enter)")}!`;
+}
+
+// Game logic functionalities
+function throwHands() {
+  // Checks if player 1 hand matches player 2
+  if (game.playerHand1 === game.playerHand2) {
+    gameLbl.textContent = "This Round is a Draw!";
+    return null;
+  }
+  const player = game.winConditions.player;
+  const computer = game.winConditions.computer;
+  for (let i = 0; i < 3; i++) {
+    if (
+      game.playerHand1 === player[i].hand1 &&
+      game.playerHand2 === player[i].hand2
+    ) {
+      gameLbl.textContent = `${playerName} Wins This Round!`;
+      game.scores.player++;
+      score0Lbl.textContent = game.scores.player;
+    } else if (
+      game.playerHand1 === computer[i].hand1 &&
+      game.playerHand2 === computer[i].hand2
+    ) {
+      gameLbl.textContent = "CPU Wins This Round!";
+      game.scores.computer++;
+      score1Lbl.textContent = game.scores.computer;
+    }
+  }
 }
 
 function isGameWinner() {
@@ -80,61 +137,38 @@ function isGameWinner() {
   ) {
     const msg =
       game.scores.player === game.rounds
-        ? (gameLbl.textContent = `${playerName} Wins 🏆!`)
-        : (gameLbl.textContent = "CPU Wins 🤖!");
-    displayHands();
+        ? `${playerName} Wins 🏆!`
+        : "CPU Wins 🤖!";
+    gameLbl.textContent = msg;
     game.flag = false;
-    return true;
   }
-  return false;
 }
 
-function generateHand() {
-  // Generates a hand for the CPU
+// Hand functions
+function changeHand(self) {
+  game.playerHand1 = self.value;
+  self.classList.toggle("btn--active");
+  currentHand.classList.toggle("btn--active");
+  currentHand = self;
+  updateGUI();
+}
+
+function displayHand() {
   const hands = ["rock", "paper", "scissors"];
   const index = Math.floor(Math.random() * hands.length);
-  return hands[index];
-}
-
-function displayHands() {
-  game.playerHand2 = generateHand();
+  game.playerHand2 = hands[index];
   hand1Img.src = `./assets/images/${game.playerHand2}-left.png`;
-}
-
-function throwHands() {
-  // Checks if player 1 hand matches player 2
-  if (game.playerHand1 === game.playerHand2) {
-    gameLbl.textContent = "This Round is a Draw!";
-    // Checks if player 1 beats player 2
-  } else if (
-    (game.playerHand1 === "rock" && game.playerHand2 === "scissors") ||
-    (game.playerHand1 === "scissors" && game.playerHand2 === "paper") ||
-    (game.playerHand1 === "paper" && game.playerHand2 === "rock")
-  ) {
-    gameLbl.textContent = `${playerName} Wins This Round!`;
-    game.scores.player++;
-    score0Lbl.textContent = game.scores.player;
-
-    // Or otherwise, player 2 beats player 1
-  } else {
-    gameLbl.textContent = "CPU Wins This Round!";
-    game.scores.computer++;
-    score1Lbl.textContent = game.scores.computer;
-  }
 }
 
 // Button functionalities
 for (const btn of handBtns) {
   btn.addEventListener("click", function () {
-    if (game.flag) updateGame(this);
+    if (game.flag) changeHand(this);
   });
 }
 
 throwBtn.addEventListener("click", function () {
-  if (game.flag) {
-    throwHands();
-    if (!isGameWinner()) displayHands();
-  }
+  if (game.flag) updateGame();
 });
 
 resetBtn.addEventListener("click", init);
@@ -146,15 +180,13 @@ document.addEventListener("keyup", function (e) {
   if (game.flag) {
     switch (e.key.toLowerCase()) {
       case "enter":
-        throwHands();
-        if (!isGameWinner()) displayHands();
-        break;
+        return updateGame();
       case "q":
-        return updateGame(rockBtn);
+        return changeHand(rockBtn);
       case "w":
-        return updateGame(paperBtn);
+        return changeHand(paperBtn);
       case "e":
-        return updateGame(scissorsBtn);
+        return changeHand(scissorsBtn);
     }
   }
 });
