@@ -27,45 +27,29 @@ let playerName, currentHand;
 const game = {
   scores: {},
   rounds: 5,
-  winConditions: {
-    player: [
-      {
-        hand1: "rock",
-        hand2: "scissors",
-      },
-      {
-        hand1: "scissors",
-        hand2: "paper",
-      },
-      {
-        hand1: "paper",
-        hand2: "rock",
-      },
-    ],
-    computer: [
-      {
-        hand1: "scissors",
-        hand2: "rock",
-      },
-      {
-        hand1: "paper",
-        hand2: "scissors",
-      },
-      {
-        hand1: "rock",
-        hand2: "paper",
-      },
-    ],
-  },
+  winConditionsPlayer: [
+    {
+      hand1: "rock",
+      hand2: "scissors",
+    },
+    {
+      hand1: "scissors",
+      hand2: "paper",
+    },
+    {
+      hand1: "paper",
+      hand2: "rock",
+    },
+  ],
 };
 
 function init() {
   // Reset game values
-  game.playerHand1 = rockBtn.value;
+  currentHand = rockBtn;
+  game.playerHand1 = currentHand.value;
   game.scores.player = 0;
   game.scores.computer = 0;
   game.flag = true;
-  currentHand = rockBtn;
   // Clean-up GUI
   rockBtn.classList.add("btn--active");
   paperBtn.classList.remove("btn--active");
@@ -74,7 +58,7 @@ function init() {
   gameLbl.style.color = "#000";
   score0Lbl.textContent = game.scores.player;
   score1Lbl.textContent = game.scores.computer;
-  updateGUI();
+  updateUI();
 }
 
 function updateGame() {
@@ -93,7 +77,7 @@ function loadGame() {
   overlay.classList.add("hidden");
 }
 
-function updateGUI() {
+function updateUI() {
   hand0Img.src = `./assets/images/${game.playerHand1}-right.png`;
   hand1Img.src = `./assets/images/default-hand.png`;
   throwBtn.textContent = `Throw 👋 ${currentHand.textContent
@@ -108,25 +92,21 @@ function throwHands() {
     gameLbl.textContent = "This Round is a Draw!";
     return null;
   }
-  const player = game.winConditions.player;
-  const computer = game.winConditions.computer;
-  for (let i = 0; i < 3; i++) {
+  const conditions = Object.values(game.winConditionsPlayer);
+  for (const condition of conditions) {
     if (
-      game.playerHand1 === player[i].hand1 &&
-      game.playerHand2 === player[i].hand2
+      game.playerHand1 === condition.hand1 &&
+      game.playerHand2 === condition.hand2
     ) {
       gameLbl.textContent = `${playerName} Wins This Round!`;
       game.scores.player++;
       score0Lbl.textContent = game.scores.player;
-    } else if (
-      game.playerHand1 === computer[i].hand1 &&
-      game.playerHand2 === computer[i].hand2
-    ) {
-      gameLbl.textContent = "CPU Wins This Round!";
-      game.scores.computer++;
-      score1Lbl.textContent = game.scores.computer;
+      return null;
     }
   }
+  gameLbl.textContent = "CPU Wins This Round!";
+  game.scores.computer++;
+  score1Lbl.textContent = game.scores.computer;
 }
 
 function isGameWinner() {
@@ -150,7 +130,7 @@ function changeHand(self) {
   self.classList.toggle("btn--active");
   currentHand.classList.toggle("btn--active");
   currentHand = self;
-  updateGUI();
+  updateUI();
 }
 
 function displayHand() {
@@ -160,7 +140,7 @@ function displayHand() {
   hand1Img.src = `./assets/images/${game.playerHand2}-left.png`;
 }
 
-// Button functionalities
+// Event handlers
 for (const btn of handBtns) {
   btn.addEventListener("click", function () {
     if (game.flag) changeHand(this);
