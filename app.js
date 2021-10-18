@@ -1,28 +1,34 @@
 "use scrict";
 
 // Selecting elements
-// --- BUTTONS
+// BUTTONS
+// --- MODES
+const modeBtn = document
+  .querySelector("#btn--modes")
+  .querySelector(".btn--active");
+// --- HANDS
 const handBtns = document
   .querySelector("#btn--hands")
   .getElementsByClassName("btn");
 const [rockBtn, paperBtn, scissorsBtn] = handBtns;
+// --- OTHERS
 const throwBtn = document.querySelector("#btn--throw");
 const resetBtn = document.querySelector("#btn--reset");
 const closeBtn = document.querySelector("#btn--close");
-// --- LABELS
+// LABELS
 const gameLbl = document.querySelector("#game--label");
 const name0Lbl = document.querySelector("#name--0");
 const score0Lbl = document.querySelector("#score--0");
 const score1Lbl = document.querySelector("#score--1");
-// ---IMAGES
+// IMAGES
 const hand0Img = document.querySelector("#hand--0");
 const hand1Img = document.querySelector("#hand--1");
-// --- MISC.
+// MISC.
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 
 // Initial variables
-let playerName, currentHand;
+let playerName, currentHand, lastPlayerHand, roundWinner;
 
 const game = {
   scores: {},
@@ -46,9 +52,12 @@ const game = {
 function init() {
   // Reset game values
   currentHand = rockBtn;
+  lastPlayerHand = null;
+  roundWinner = null;
   game.playerHand1 = currentHand.value;
   game.scores.player = 0;
   game.scores.computer = 0;
+  game.mode = "easy";
   game.flag = true;
   // Clean-up GUI
   rockBtn.classList.add("btn--active");
@@ -64,9 +73,10 @@ function init() {
 
 function loadGame() {
   (() => init())();
-  // playerName = prompt("Ready! Enter Player Name: ");
-  // if (!playerName) return alert("MUST SPECIFY A NAME!");
-  // name0Lbl.textContent = playerName;
+  playerName = prompt("Ready! Enter Player Name: ");
+  if (!playerName) return alert("MUST SPECIFY A NAME!");
+  name0Lbl.textContent = playerName;
+  game.mode = modeBtn.value;
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
 }
@@ -89,8 +99,10 @@ function updateUI() {
 // Game logic functions
 function throwHands() {
   // Checks if player 1 hand matches player 2
+  lastPlayerHand = currentHand;
   if (game.playerHand1 === game.playerHand2) {
     gameLbl.textContent = "This Round is a Draw!";
+    roundWinner = null;
     return null;
   }
   const conditions = Object.values(game.winConditionsPlayer);
@@ -99,12 +111,15 @@ function throwHands() {
       gameLbl.textContent = `${playerName} Wins This Round!`;
       game.scores.player++;
       score0Lbl.textContent = game.scores.player;
+      roundWinner = "player";
       return null;
     }
   }
   gameLbl.textContent = "CPU Wins This Round!";
   game.scores.computer++;
   score1Lbl.textContent = game.scores.computer;
+  roundWinner = "computer";
+  console.log(roundWinner);
 }
 
 function isGameWinner() {
@@ -127,14 +142,35 @@ function changeHand(self) {
   game.playerHand1 = self.value;
   self.classList.toggle("btn--active");
   currentHand.classList.toggle("btn--active");
+  currentHand.blur();
   currentHand = self;
   updateUI();
 }
 
+function generateRandomHand(hands = ["rock", "paper", "scissors"]) {
+  const idx = Math.floor(Math.random() * hands.length);
+  return hands[idx];
+}
+
 function displayHand() {
-  const hands = ["rock", "paper", "scissors"];
-  const index = Math.floor(Math.random() * hands.length);
-  game.playerHand2 = hands[index];
+  let hands;
+  if (game.mode === "easy") {
+    switch (lastPlayerHand?.value) {
+      case "rock":
+        if (roundWinner === "player") hands = ["rock"];
+        else if (roundWinner === "computer") hands = ["scissors"];
+        break;
+      case "paper":
+        if (roundWinner === "player") hands = ["paper"];
+        else if (roundWinner === "computer") hands = ["rock"];
+        break;
+      case "scissors":
+        if (roundWinner === "player") hands = ["scissors"];
+        else if (roundWinner === "computer") hands = ["paper"];
+        break;
+    }
+    game.playerHand2 = generateRandomHand(hands);
+  }
   hand1Img.src = `./assets/images/${game.playerHand2}-left.png`;
 }
 
