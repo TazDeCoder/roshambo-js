@@ -58,7 +58,17 @@ function init() {
   gameLbl.style.color = "#000";
   score0Lbl.textContent = game.scores.player;
   score1Lbl.textContent = game.scores.computer;
+  resetBtn.blur();
   updateUI();
+}
+
+function loadGame() {
+  (() => init())();
+  // playerName = prompt("Ready! Enter Player Name: ");
+  // if (!playerName) return alert("MUST SPECIFY A NAME!");
+  // name0Lbl.textContent = playerName;
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
 }
 
 function updateGame() {
@@ -67,16 +77,7 @@ function updateGame() {
   isGameWinner();
 }
 
-// Game GUI functionalities
-function loadGame() {
-  (() => init())();
-  playerName = prompt("Ready! Enter Player Name: ");
-  if (!playerName) return alert("MUST SPECIFY A NAME!");
-  name0Lbl.textContent = playerName;
-  modal.classList.add("hidden");
-  overlay.classList.add("hidden");
-}
-
+// Game UI functions
 function updateUI() {
   hand0Img.src = `./assets/images/${game.playerHand1}-right.png`;
   hand1Img.src = `./assets/images/default-hand.png`;
@@ -85,7 +86,7 @@ function updateUI() {
     .concat("(Enter)")}!`;
 }
 
-// Game logic functionalities
+// Game logic functions
 function throwHands() {
   // Checks if player 1 hand matches player 2
   if (game.playerHand1 === game.playerHand2) {
@@ -93,11 +94,8 @@ function throwHands() {
     return null;
   }
   const conditions = Object.values(game.winConditionsPlayer);
-  for (const condition of conditions) {
-    if (
-      game.playerHand1 === condition.hand1 &&
-      game.playerHand2 === condition.hand2
-    ) {
+  for (const cond of conditions) {
+    if (game.playerHand1 === cond.hand1 && game.playerHand2 === cond.hand2) {
       gameLbl.textContent = `${playerName} Wins This Round!`;
       game.scores.player++;
       score0Lbl.textContent = game.scores.player;
@@ -160,6 +158,7 @@ document.addEventListener("keyup", function (e) {
   if (game.flag) {
     switch (e.key.toLowerCase()) {
       case "enter":
+        currentHand.blur();
         return updateGame();
       case "q":
         return changeHand(rockBtn);
