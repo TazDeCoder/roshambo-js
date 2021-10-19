@@ -157,16 +157,14 @@ function displayHand() {
   if (game.mode === "easy") {
     switch (lastPlayerHand?.value) {
       case "rock":
-        if (roundWinner === "player") hands = ["rock"];
-        else if (roundWinner === "computer") hands = ["scissors"];
+        hands =
+          roundWinner === "player" ? [lastPlayerHand.value] : ["scissors"];
         break;
       case "paper":
-        if (roundWinner === "player") hands = ["paper"];
-        else if (roundWinner === "computer") hands = ["rock"];
+        hands = roundWinner === "player" ? [lastPlayerHand.value] : ["rock"];
         break;
       case "scissors":
-        if (roundWinner === "player") hands = ["scissors"];
-        else if (roundWinner === "computer") hands = ["paper"];
+        hands = roundWinner === "player" ? [lastPlayerHand.value] : ["paper"];
         break;
     }
     game.playerHand2 = generateRandomHand(hands);
