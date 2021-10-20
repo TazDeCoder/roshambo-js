@@ -52,12 +52,10 @@ const game = {
 function init() {
   // Reset game values
   currentHand = rockBtn;
-  lastPlayerHand = null;
-  roundWinner = null;
+  lastPlayerHand = roundWinner = "";
   game.playerHand1 = currentHand.value;
-  game.scores.player = 0;
-  game.scores.computer = 0;
-  game.mode = "easy";
+  game.playerHand2 = "default";
+  game.scores.player = game.scores.computer = 0;
   game.flag = true;
   // Clean-up GUI
   rockBtn.classList.add("btn--active");
@@ -65,80 +63,36 @@ function init() {
   scissorsBtn.classList.remove("btn--active");
   gameLbl.textContent = "Select an Element!";
   gameLbl.style.color = "#000";
-  score0Lbl.textContent = game.scores.player;
-  score1Lbl.textContent = game.scores.computer;
-  resetBtn.blur();
+  score0Lbl.textContent = score1Lbl.textContent = "0";
+  hand1Img.src = `./assets/images/${game.playerHand2}-left.png`;
   updateUI();
 }
 
 function loadGame() {
   (() => init())();
-  playerName = prompt("Ready! Enter Player Name: ");
-  if (!playerName) return alert("MUST SPECIFY A NAME!");
-  name0Lbl.textContent = playerName;
+  // playerName = prompt("Ready! Enter Player Name: ");
+  // if (!playerName) return alert("MUST SPECIFY A NAME!");
+  // name0Lbl.textContent = playerName;
   game.mode = modeBtn.value;
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
 }
 
 function updateGame() {
-  displayHand();
+  calcAiHand();
   throwHands();
-  isGameWinner();
+  checkIfGameWinner();
 }
 
 // Game UI functions
 function updateUI() {
   hand0Img.src = `./assets/images/${game.playerHand1}-right.png`;
-  hand1Img.src = `./assets/images/default-hand.png`;
   throwBtn.textContent = `Throw 👋 ${currentHand.textContent
     .slice(0, 15)
     .concat("(Enter)")}!`;
 }
 
-// Game logic functions
-function throwHands() {
-  // Checks if player 1 hand matches player 2
-  lastPlayerHand = currentHand;
-  if (game.playerHand1 === game.playerHand2) {
-    gameLbl.textContent = "This Round is a Draw!";
-    roundWinner = null;
-    return null;
-  }
-  const conditions = Object.values(game.winConditionsPlayer);
-  for (const cond of conditions) {
-    if (game.playerHand1 === cond.hand1 && game.playerHand2 === cond.hand2) {
-      gameLbl.textContent = `${playerName} Wins This Round!`;
-      game.scores.player++;
-      score0Lbl.textContent = game.scores.player;
-      roundWinner = "player";
-      return null;
-    }
-  }
-  gameLbl.textContent = "CPU Wins This Round!";
-  game.scores.computer++;
-  score1Lbl.textContent = game.scores.computer;
-  roundWinner = "computer";
-  console.log(roundWinner);
-}
-
-function isGameWinner() {
-  // Checks if either player or CPU wins the game
-  if (
-    game.scores.player === game.rounds ||
-    game.scores.computer === game.rounds
-  ) {
-    const msg =
-      game.scores.player === game.rounds
-        ? `${playerName} Wins 🏆!`
-        : "CPU Wins 🤖!";
-    gameLbl.textContent = msg;
-    game.flag = false;
-  }
-}
-
-// Hand functions
-function changeHand(self) {
+function changePlayerHand(self) {
   game.playerHand1 = self.value;
   self.classList.toggle("btn--active");
   currentHand.classList.toggle("btn--active");
@@ -147,27 +101,62 @@ function changeHand(self) {
   updateUI();
 }
 
-function generateRandomHand(hands = ["rock", "paper", "scissors"]) {
-  const idx = Math.floor(Math.random() * hands.length);
-  return hands[idx];
+// Game logic functions
+function throwHands() {
+  lastPlayerHand = currentHand;
+  // Checks if player 1 hand matches player 2
+  if (game.playerHand1 === game.playerHand2) {
+    gameLbl.textContent = "This Round is a Draw!";
+    roundWinner = "";
+    return;
+  } else {
+    for (const val of Object.values(game.winConditionsPlayer)) {
+      if (game.playerHand1 === val.hand1 && game.playerHand2 === val.hand2) {
+        gameLbl.textContent = `${playerName} Wins This Round!`;
+        game.scores.player++;
+        score0Lbl.textContent = game.scores.player;
+        roundWinner = "player";
+        return;
+      }
+    }
+    gameLbl.textContent = "CPU Wins This Round!";
+    game.scores.computer++;
+    score1Lbl.textContent = game.scores.computer;
+    roundWinner = "computer";
+  }
 }
 
-function displayHand() {
-  let hands;
+function checkIfGameWinner() {
+  // Checks if either player or CPU wins the game
+  if (game.scores.player === game.rounds) {
+    gameLbl.textContent = `${playerName} Wins 🏆!`;
+    game.flag = false;
+  } else if (game.scores.computer === game.rounds) {
+    gameLbl.textContent = "CPU Wins 🤖!";
+    game.flag = false;
+  }
+}
+
+function calcAiHand() {
+  let hand;
+  const generateRandHand = () => {
+    const hands = ["rock", "paper", "scissors"];
+    const idx = Math.floor(Math.random() * hands.length);
+    return hands[idx];
+  };
   if (game.mode === "easy") {
     switch (lastPlayerHand?.value) {
       case "rock":
-        hands =
-          roundWinner === "player" ? [lastPlayerHand.value] : ["scissors"];
+        hand = roundWinner === "player" ? [lastPlayerHand.value] : "scissors";
         break;
       case "paper":
-        hands = roundWinner === "player" ? [lastPlayerHand.value] : ["rock"];
+        hand = roundWinner === "player" ? [lastPlayerHand.value] : "rock";
         break;
       case "scissors":
-        hands = roundWinner === "player" ? [lastPlayerHand.value] : ["paper"];
+        hand = roundWinner === "player" ? [lastPlayerHand.value] : "paper";
         break;
     }
-    game.playerHand2 = generateRandomHand(hands);
+    game.playerHand2 = !hand ? generateRandHand() : hand;
   }
   hand1Img.src = `./assets/images/${game.playerHand2}-left.png`;
 }
@@ -175,7 +164,7 @@ function displayHand() {
 // Event handlers
 for (const btn of handBtns) {
   btn.addEventListener("click", function () {
-    if (game.flag) changeHand(this);
+    if (game.flag) changePlayerHand(this);
   });
 }
 
@@ -183,7 +172,11 @@ throwBtn.addEventListener("click", function () {
   if (game.flag) updateGame();
 });
 
-resetBtn.addEventListener("click", init);
+resetBtn.addEventListener("click", function () {
+  this.blur();
+  init();
+});
+
 closeBtn.addEventListener("click", loadGame);
 overlay.addEventListener("click", loadGame);
 
@@ -195,11 +188,11 @@ document.addEventListener("keyup", function (e) {
         currentHand.blur();
         return updateGame();
       case "q":
-        return changeHand(rockBtn);
+        return changePlayerHand(rockBtn);
       case "w":
-        return changeHand(paperBtn);
+        return changePlayerHand(paperBtn);
       case "e":
-        return changeHand(scissorsBtn);
+        return changePlayerHand(scissorsBtn);
     }
   }
 });
