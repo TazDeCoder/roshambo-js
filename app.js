@@ -33,20 +33,36 @@ let playerName, currentHand, lastPlayerHand, roundWinner;
 const game = {
   scores: {},
   rounds: 5,
-  winConditionsPlayer: [
-    {
-      hand1: "rock",
-      hand2: "scissors",
-    },
-    {
-      hand1: "scissors",
-      hand2: "paper",
-    },
-    {
-      hand1: "paper",
-      hand2: "rock",
-    },
-  ],
+  winConditions: {
+    player: [
+      {
+        hand1: "rock",
+        hand2: "scissors",
+      },
+      {
+        hand1: "paper",
+        hand2: "rock",
+      },
+      {
+        hand1: "scissors",
+        hand2: "paper",
+      },
+    ],
+    computer: [
+      {
+        hand1: "scissors",
+        hand2: "rock",
+      },
+      {
+        hand1: "rock",
+        hand2: "paper",
+      },
+      {
+        hand1: "paper",
+        hand2: "scissors",
+      },
+    ],
+  },
 };
 
 function init() {
@@ -108,37 +124,48 @@ function throwHands() {
   if (game.playerHand1 === game.playerHand2) {
     gameLbl.textContent = "This Round is a Draw!";
     roundWinner = "";
-    return;
   } else {
-    for (const val of Object.values(game.winConditionsPlayer)) {
-      if (game.playerHand1 === val.hand1 && game.playerHand2 === val.hand2) {
-        gameLbl.textContent = `${playerName} Wins This Round!`;
+    const { player, computer } = game.winConditions;
+    for (let i = 0; i < player.length; i++) {
+      if (
+        game.playerHand1 === player[i].hand1 &&
+        game.playerHand2 === player[i].hand2
+      ) {
+        roundWinner = "player";
         game.scores.player++;
         score0Lbl.textContent = game.scores.player;
-        roundWinner = "player";
-        return;
+        break;
+      } else if (
+        game.playerHand1 === computer[i].hand1 &&
+        game.playerHand2 === computer[i].hand2
+      ) {
+        roundWinner = "computer";
+        game.scores.computer++;
+        score1Lbl.textContent = game.scores.computer;
+        break;
       }
     }
-    gameLbl.textContent = "CPU Wins This Round!";
-    game.scores.computer++;
-    score1Lbl.textContent = game.scores.computer;
-    roundWinner = "computer";
+    gameLbl.textContent =
+      roundWinner === "player"
+        ? `${playerName} Wins This Round!`
+        : "CPU Wins This Round!";
   }
 }
 
 function checkIfGameWinner() {
   // Checks if either player or CPU wins the game
-  if (game.scores.player === game.rounds) {
-    gameLbl.textContent = `${playerName} Wins 🏆!`;
-    game.flag = false;
-  } else if (game.scores.computer === game.rounds) {
-    gameLbl.textContent = "CPU Wins 🤖!";
+  if (
+    game.scores.player === game.rounds ||
+    game.scores.computer === game.rounds
+  ) {
+    gameLbl.textContent =
+      roundWinner === "player" ? `${playerName} Wins 🏆!` : "CPU Wins 🤖!";
     game.flag = false;
   }
 }
 
 function calcAiHand() {
-  let hand;
+  let hand, idx;
   const generateRandHand = () => {
     const hands = ["rock", "paper", "scissors"];
     const idx = Math.floor(Math.random() * hands.length);
@@ -147,14 +174,20 @@ function calcAiHand() {
   if (game.mode === "easy") {
     switch (lastPlayerHand?.value) {
       case "rock":
-        hand = roundWinner === "player" ? [lastPlayerHand.value] : "scissors";
+        idx = 0;
         break;
       case "paper":
-        hand = roundWinner === "player" ? [lastPlayerHand.value] : "rock";
+        idx = 1;
         break;
       case "scissors":
-        hand = roundWinner === "player" ? [lastPlayerHand.value] : "paper";
+        idx = 2;
         break;
+    }
+    if (idx) {
+      hand =
+        roundWinner === "player"
+          ? lastPlayerHand.value
+          : game.winConditions.player[idx].hand2;
     }
     game.playerHand2 = !hand ? generateRandHand() : hand;
   }
