@@ -9,12 +9,14 @@
 Player versus CPU where the first to win 5 rounds wins the game!
 
 **Features:**
+
 - Modern User Interface
 - Intuitive Design
 
 **TASK-LIST:**
-- [ ] Keyboard Support
-- [ ] Difficulty Mode
+
+- [ x ] Keyboard Support
+- [ x ] Difficulty Mode
 
 ## Installation
 

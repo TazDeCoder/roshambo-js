@@ -81,9 +81,6 @@ iframe {
 .btn--active:hover {
   background-color: var(--fore-btn-hover-background-color);
 }
-.btn--invalid:hover {
-  cursor: not-allowed;
-}
 /* Content */
 /* Main */
 #main {
