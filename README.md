@@ -1,8 +1,14 @@
 # Roshambo
 
-## Demo Preview
+## Demo Previews
 
-![Demo Preview](/assets/images/demo-preview.png)
+![Demo preview for desktop](/assets/images/desktop-demo.png)
+
+![Demo preview for mobile](/assets/images/mobile-demo.png)
+
+## Screenshots
+
+![Game startup menu](/assets/images/game-startup.png)
 
 ## Description
 
@@ -12,11 +18,15 @@ Player versus CPU where the first to win 5 rounds wins the game!
 
 - Modern User Interface
 - Intuitive Design
+- **NEW**: Keyboard Support
+- **NEW**: Difficulty Modes
 
 **TASK-LIST:**
 
-- [ x ] Keyboard Support
-- [ x ] Difficulty Mode
+- [x] Keyboard Support
+- [x] Difficulty Mode
+
+**_None at the moment, but feel free to suggest any :)_**
 
 ## Installation
 
