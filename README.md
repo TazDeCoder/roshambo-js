@@ -12,19 +12,21 @@
 
 ## Description
 
-Player versus CPU where the first to win 5 rounds wins the game!
+Player versus CPU where the first to win all rounds wins the game!
 
 **Features:**
 
 - Modern User Interface
 - Intuitive Design
-- **NEW**: Keyboard Support
-- **NEW**: Difficulty Modes
+- Keyboard Support
+- Difficulty Modes
 
 **TASK-LIST:**
 
 - [x] Keyboard Support
 - [x] Difficulty Mode
+- [ ] Round Selector - nearly done!
+- [ ] Ai Matches
 
 **_None at the moment, but feel free to suggest any :)_**
 
