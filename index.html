@@ -24,23 +24,27 @@
     <main id="main">
       <h1 id="title">Roshambo</h1>
       <!-- Buttons to select hand -->
-      <section class="btn-selection" id="btn--hands">
-        <button class="btn btn--active" value="rock">
+      <section class="selection" id="hands">
+        <button
+          value="rock"
+          class="selection__btn selection__btn--active"
+          id="btn--rock"
+        >
           🧱 <br />
           (q)
         </button>
-        <button class="btn" value="paper">
+        <button value="paper" class="selection__btn" id="btn--paper">
           📰 <br />
           (w)
         </button>
-        <button class="btn" value="scissors">
+        <button value="scissors" class="selection__btn" id="btn--scissors">
           ✂ <br />
           (e)
         </button>
       </section>
-      <label id="game--label" for="game-section">Select an Element!</label>
+      <p id="game-label">Select an Element!</p>
       <!-- Displays the game to user -->
-      <section id="game-section">
+      <section id="game">
         <div class="player" id="player--0">
           <h2 class="player__name" id="name--0">Player 1</h2>
           <p class="player__score" id="score--0">0</p>
@@ -61,9 +65,11 @@
         </div>
       </section>
       <!-- Buttons for options -->
-      <section class="btn-selection" id="btn--options">
-        <button class="btn" id="btn--throw">Throw! 👋🧱 (Enter)</button>
-        <button class="btn" id="btn--reset">Reset</button>
+      <section class="selection" id="options">
+        <button class="selection__btn" id="btn--throw">
+          Throw! 👋🧱 (Enter)
+        </button>
+        <button class="selection__btn" id="btn--reset">Reset</button>
       </section>
       <!-- Footer -->
       <footer id="footer">
@@ -75,8 +81,8 @@
     </main>
     <!-- Displays the game start-up popup -->
     <div class="modal">
-      <section id="welcome-msg">
-        <h1>Welcome! 😃</h1>
+      <section id="welcome">
+        <h2>Welcome! 😃</h2>
         <p>The Rules are Simple!</p>
         <ul>
           <li>Rock 🧱 Beats ✂ Scissors</li>
@@ -84,10 +90,14 @@
           <li>Paper 📰 Beats 🧱 Rock</li>
         </ul>
       </section>
-      <label id="mode--label" for="btn-selection">Select a Diffculty!</label>
-      <section class="btn-selection" id="btn--modes">
-        <button class="btn" id="btn--easy" value="easy">Easy 👶</button>
-        <button class="btn" id="btn--hard" value="hard">Hard 💪</button>
+      <p id="modes-label">Select a Diffculty!</p>
+      <section class="selection" id="modes">
+        <button value="easy" class="selection__btn" id="btn--easy">
+          Easy 👶
+        </button>
+        <button value="hard" class="selection__btn" id="btn--hard">
+          Hard 💪
+        </button>
       </section>
       <button class="btn" id="btn--close">&times;</button>
     </div>

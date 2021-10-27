@@ -1,28 +1,25 @@
 "use scrict";
 
-// Selecting elements
+// Selecting HTML elements
 // Buttons
-// --- MODES ---
-const modeBtns = document
-  .querySelector("#btn--modes")
-  .getElementsByClassName("btn");
 // --- HANDS ---
-const handBtns = document
-  .querySelector("#btn--hands")
-  .getElementsByClassName("btn");
-const [btnRock, btnPaper, btnScissors] = handBtns;
+const btnsHand = document.querySelectorAll("#hands .selection__btn");
+const btnRock = document.querySelector("#btn--rock");
+const btnPaper = document.querySelector("#btn--paper");
+const btnScissors = document.querySelector("#btn--scissors");
 // --- OTHERS ---
+const btnsMode = document.querySelectorAll("#modes .selection__btn");
 const btnThrow = document.querySelector("#btn--throw");
 const btnReset = document.querySelector("#btn--reset");
 const btnClose = document.querySelector("#btn--close");
 // Labels
-const gameLbl = document.querySelector("#game--label");
-const name0Lbl = document.querySelector("#name--0");
-const score0Lbl = document.querySelector("#score--0");
-const score1Lbl = document.querySelector("#score--1");
+const labelGame = document.querySelector("#game-label");
+const labelName0 = document.querySelector("#name--0");
+const labelScore0 = document.querySelector("#score--0");
+const labelScore1 = document.querySelector("#score--1");
 // Images
-const hand0Img = document.querySelector("#hand--0");
-const hand1Img = document.querySelector("#hand--1");
+const imageHand0 = document.querySelector("#hand--0");
+const imageHand1 = document.querySelector("#hand--1");
 // Misc.
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
@@ -84,12 +81,12 @@ function init() {
   flag = true;
   game.scores.player = game.scores.computer = 0;
   // Clean-up GUI
-  btnRock.classList.add("btn--active");
-  btnPaper.classList.remove("btn--active");
-  btnScissors.classList.remove("btn--active");
-  gameLbl.textContent = "Select an Element!";
-  score0Lbl.textContent = score1Lbl.textContent = "0";
-  hand1Img.src = `./assets/images/default-left.png`;
+  btnRock.classList.add("selection__btn--active");
+  btnPaper.classList.remove("selection__btn--active");
+  btnScissors.classList.remove("selection__btn--active");
+  labelGame.textContent = "Select an Element!";
+  labelScore0.textContent = labelScore1.textContent = "0";
+  imageHand1.src = `./assets/images/default-left.png`;
   updateUI();
 }
 
@@ -99,7 +96,7 @@ function loadGame() {
   game.mode = currMode.value;
   playerName = prompt("Ready! Enter Player Name: ");
   if (!playerName) playerName = "Player 1";
-  name0Lbl.textContent = playerName;
+  labelName0.textContent = playerName;
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
 }
@@ -112,7 +109,7 @@ function updateGame() {
 
 // Game UI Functions
 function updateUI() {
-  hand0Img.src = `./assets/images/${playerHand}-right.png`;
+  imageHand0.src = `./assets/images/${playerHand}-right.png`;
   btnThrow.textContent = `Throw 👋 ${currHand.textContent
     .slice(0, 15)
     .concat("(Enter)")}!`;
@@ -120,8 +117,8 @@ function updateUI() {
 
 function changePlayerHand(self) {
   playerHand = self.value;
-  self.classList.toggle("btn--active");
-  currHand.classList.toggle("btn--active");
+  self.classList.toggle("selection__btn--active");
+  currHand.classList.toggle("selection__btn--active");
   currHand.blur();
   currHand = self;
   updateUI();
@@ -158,7 +155,7 @@ function calcHand() {
     hand = generateRandHand(arr);
   }
   computerHand = !hand ? generateRandHand() : hand;
-  hand1Img.src = `./assets/images/${computerHand}-left.png`;
+  imageHand1.src = `./assets/images/${computerHand}-left.png`;
 }
 
 function throwHands() {
@@ -166,7 +163,7 @@ function throwHands() {
   const gameHands = [playerHand, computerHand];
   // Checks if player 1 hand matches player 2
   if (playerHand === computerHand) {
-    gameLbl.textContent = "This Round is a Draw!";
+    labelGame.textContent = "This Round is a Draw!";
     roundWinner = "";
   } else {
     const { player, computer } = game.winConditions;
@@ -177,15 +174,15 @@ function throwHands() {
       if (gameHands.every((hand, i) => hand === playerWinCond[i])) {
         roundWinner = "player";
         game.scores.player++;
-        score0Lbl.textContent = game.scores.player;
+        labelScore0.textContent = game.scores.player;
         // Or otherwise, compares every hand again to see if computer won this round
       } else if (gameHands.every((hand, i) => hand === computerWinCond[i])) {
         roundWinner = "computer";
         game.scores.computer++;
-        score1Lbl.textContent = game.scores.computer;
+        labelScore1.textContent = game.scores.computer;
       }
     }
-    gameLbl.textContent =
+    labelGame.textContent =
       roundWinner === "player"
         ? `${playerName} Wins This Round!`
         : "CPU Wins This Round!";
@@ -198,28 +195,30 @@ function checkGameWinner() {
     game.scores.player === game.rounds ||
     game.scores.computer === game.rounds
   ) {
-    gameLbl.textContent =
+    labelGame.textContent =
       roundWinner === "player" ? `${playerName} Wins 🏆!` : "CPU Wins 🤖!";
     flag = false;
   }
 }
 
 // Event Handlers
-for (const btn of modeBtns) {
+btnsMode.forEach(function (btn) {
+  console.log(btn);
   btn.addEventListener("click", function () {
     game.mode = this.value;
-    this.classList.toggle("btn--active");
-    currMode?.classList.toggle("btn--active");
+    this.classList.toggle("selection__btn--active");
+    currMode?.classList.toggle("selection__btn--active");
     currMode?.blur();
     currMode = this;
   });
-}
+});
 
-for (const btn of handBtns) {
+btnsHand.forEach(function (btn) {
+  console.log(btn);
   btn.addEventListener("click", function () {
     if (flag) changePlayerHand(this);
   });
-}
+});
 
 btnThrow.addEventListener("click", function () {
   if (flag) updateGame();

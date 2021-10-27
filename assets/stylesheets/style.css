@@ -1,4 +1,3 @@
-/* Universal styles */
 *,
 *:before,
 *:after {
@@ -33,56 +32,69 @@ iframe {
   height: auto;
 }
 :root {
-  --main-btn-background-color: #e4e2e2;
-  --main-btn-hover-background-color: #cfcdcd;
-  --main-background-color: #ffffff;
-  --fore-btn-background-color: #5a5a5a;
-  --fore-btn-hover-background-color: #4e4e4e;
+  --color-primary: #ffffff;
+  --color-primary-selection__btn: #e4e2e2;
+  --color-primary-selection__btn--hover: #cfcdcd;
+  --color-secondary-selection__btn: #5a5a5a;
+  --color-secondary-selection__btn--hover: #4e4e4e;
 }
-/* Button selection */
-.btn-selection {
+/* Content */
+
+/* 
+ *
+ * Selection
+ *
+ */
+
+.selection {
   display: flex;
   justify-content: center;
   width: 100%;
   margin: 5px;
   font-size: 1em;
 }
-.btn {
+.selection__btn {
   width: 30%;
   padding: 12px;
   border: 2px solid #000;
   font-size: 1.2em;
-  background-color: var(--main-btn-background-color);
+  background-color: var(--color-primary-selection__btn);
 }
-.btn:hover {
-  background-color: var(--main-btn-hover-background-color);
+.selection__btn:hover {
+  background-color: var(--color-primary-selection__btn--hover);
 }
+.selection__btn--active {
+  background-color: var(--color-secondary-selection__btn);
+}
+.selection__btn--active:hover {
+  background-color: var(--color-secondary-selection__btn--hover);
+}
+
 @media only screen and (min-width: 499px) {
-  .btn-selection {
+  .selection {
     font-size: 1.2em;
   }
 }
 @media only screen and (min-width: 920px) {
-  .btn-selection {
+  .selection {
     display: inline-flex;
     flex-direction: column;
     width: 20%;
     float: right;
     margin-top: 10%;
   }
-  .btn {
+  .selection__btn {
     width: 100%;
   }
 }
-/* Button modifiers */
-.btn--active {
-  background-color: var(--fore-btn-background-color);
-}
-.btn--active:hover {
-  background-color: var(--fore-btn-hover-background-color);
-}
-/* Content */
-/* Main */
+
+/* 
+ *
+ * Main 
+ *
+ *
+ */
+
 #main {
   width: 100%;
   height: 100%;
@@ -95,6 +107,7 @@ iframe {
   margin: 12px;
   font-size: 3em;
 }
+
 @media only screen and (min-width: 499px) {
   #title {
     font-size: 4em;
@@ -113,26 +126,41 @@ iframe {
     font-size: 6em;
   }
 }
-/* Button hands */
-#btn--hands .btn {
+
+/* 
+ *
+ *
+ * Hands
+ *
+ */
+
+#hands .selection__btn {
   font-weight: 600;
 }
+
 @media only screen and (min-width: 920px) {
-  #btn--hands .btn {
+  #hands .selection__btn {
     margin: 2px auto;
   }
 }
-/* Game section */
-#game--label {
+
+/* 
+ *
+ *
+ * Game
+ *
+ */
+
+#game-label {
   display: block;
   width: 90%;
   padding: 5px;
   margin: 12px auto;
   font-weight: 700;
   text-align: center;
-  background-color: var(--main-background-color);
+  background-color: var(--color-primary);
 }
-#game-section {
+#game {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -162,21 +190,22 @@ iframe {
   border: 3px solid #000;
   margin: 24px;
 }
+
 @media only screen and (min-width: 499px) {
-  #game--label {
+  #game-label {
     font-size: 1.6em;
   }
-  #game-section {
+  #game {
     font-size: 1.5em;
   }
 }
 @media only screen and (min-width: 920px) {
-  #game--label {
+  #game-label {
     width: 50%;
     float: left;
     margin-left: 12px;
   }
-  #game-section {
+  #game {
     align-items: center;
     width: 50%;
     float: left;
@@ -185,19 +214,34 @@ iframe {
     width: 90%;
   }
 }
-/* Button options */
-#btn--options .btn {
+
+/* 
+ *
+ *
+ * Options
+ *
+ */
+
+#options .selection__btn {
   max-width: 100%;
   max-height: 92px;
   margin: 2px auto;
   font-weight: 700;
 }
+
 @media only screen and (min-width: 920px) {
-  #btn--options {
+  #options {
     margin: 7.5% 15px;
   }
 }
-/* Footer */
+
+/* 
+ *
+ * Footer
+ *
+ *
+ */
+
 #footer {
   margin-top: 22px;
   width: 100%;
@@ -214,6 +258,7 @@ iframe {
   text-decoration: underline;
   color: rgb(160, 160, 160);
 }
+
 @media only screen and (min-width: 499px) {
   #footer {
     font-size: 1.3em;
@@ -229,7 +274,14 @@ iframe {
     text-align: center;
   }
 }
-/* Start game popup */
+
+/* 
+ *
+ * Modal
+ *
+ *
+ */
+
 .modal {
   position: absolute;
   top: 50%;
@@ -243,30 +295,15 @@ iframe {
   transform: translate(-50%, -50%);
   z-index: 10;
 }
-.modal .btn-selection {
-  margin: 5px;
-}
-#welcome-msg * {
-  padding: 2px;
-  margin: 5px;
-}
-#welcome-msg p,
-#welcome-msg h1 {
-  text-align: center;
-}
-#welcome-msg ul {
-  width: 70%;
-  margin: 0 auto;
-}
-#welcome-msg ul > li {
-  margin: 2px;
-  font-size: 1.1em;
-  list-style-type: disc;
-}
-#mode--label {
-  display: block;
-  margin-top: 12px;
-  text-align: center;
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
 }
 #btn--close {
   position: absolute;
@@ -279,22 +316,10 @@ iframe {
   background: none;
   cursor: pointer;
 }
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
-  z-index: 5;
-}
+
 @media only screen and (min-width: 499px) {
   .modal {
     font-size: 1.3em;
-  }
-  #welcome-msg ul > li {
-    text-align: center;
   }
 }
 @media only screen and (min-width: 920px) {
@@ -302,13 +327,68 @@ iframe {
     margin: 0 auto;
     font-size: 1.6em;
   }
-  #welcome-msg {
+  #btn--close {
+    right: 2rem;
+  }
+}
+
+/* 
+ *
+ *
+ * Welcome
+ *
+ */
+
+#welcome * {
+  padding: 2px;
+  margin: 5px;
+}
+#welcome p,
+#welcome h2 {
+  text-align: center;
+}
+#welcome ul {
+  width: 70%;
+  margin: 0 auto;
+}
+#welcome ul > li {
+  margin: 2px;
+  font-size: 1.1em;
+  list-style-type: disc;
+}
+
+@media only screen and (min-width: 499px) {
+  #welcome ul > li {
+    text-align: center;
+  }
+}
+@media only screen and (min-width: 920px) {
+  #welcome {
     display: inline-block;
     width: 50%;
     margin-top: 12px;
     margin-bottom: 12px;
   }
-  #mode--label {
+}
+
+/* 
+ *
+ *
+ * Modes
+ *
+ */
+
+#modes-label {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+}
+#modes {
+  margin: 5px;
+}
+
+@media only screen and (min-width: 920px) {
+  #modes-label {
     position: absolute;
     top: 1rem;
     right: 8rem;
@@ -316,10 +396,7 @@ iframe {
     width: 40%;
     text-align: center;
   }
-  #btn--close {
-    right: 2rem;
-  }
-  .modal .btn-selection {
+  #modes {
     position: absolute;
     top: 4rem;
     right: 8rem;
@@ -328,7 +405,7 @@ iframe {
     align-items: center;
     font-size: 1em;
   }
-  .modal .btn-selection .btn {
+  #modes .selection__btn {
     width: 50%;
   }
 }
