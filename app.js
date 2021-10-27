@@ -20,6 +20,8 @@ const labelScore1 = document.querySelector("#score--1");
 // Images
 const imageHand0 = document.querySelector("#hand--0");
 const imageHand1 = document.querySelector("#hand--1");
+// Inputs
+const inputRound = document.querySelector("#input--round");
 // Misc.
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
@@ -36,7 +38,7 @@ let playerName,
 
 const game = {
   mode: "",
-  rounds: 5,
+  rounds: 0,
   scores: {
     player: 0,
     computer: 0,
@@ -94,6 +96,7 @@ function loadGame() {
   (() => init())();
   if (!currMode) return alert("MUST SELECT A MODE!");
   game.mode = currMode.value;
+  game.rounds = +inputRound.value;
   playerName = prompt("Ready! Enter Player Name: ");
   if (!playerName) playerName = "Player 1";
   labelName0.textContent = playerName;
@@ -203,7 +206,6 @@ function checkGameWinner() {
 
 // Event Handlers
 btnsMode.forEach(function (btn) {
-  console.log(btn);
   btn.addEventListener("click", function () {
     game.mode = this.value;
     this.classList.toggle("selection__btn--active");
@@ -214,7 +216,6 @@ btnsMode.forEach(function (btn) {
 });
 
 btnsHand.forEach(function (btn) {
-  console.log(btn);
   btn.addEventListener("click", function () {
     if (flag) changePlayerHand(this);
   });

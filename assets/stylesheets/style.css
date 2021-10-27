@@ -51,7 +51,7 @@ iframe {
   justify-content: center;
   width: 100%;
   margin: 5px;
-  font-size: 1em;
+  font-size: 1rem;
 }
 .selection__btn {
   width: 30%;
@@ -72,7 +72,7 @@ iframe {
 
 @media only screen and (min-width: 499px) {
   .selection {
-    font-size: 1.2em;
+    font-size: 1.2rem;
   }
 }
 @media only screen and (min-width: 920px) {
@@ -85,6 +85,9 @@ iframe {
   }
   .selection__btn {
     width: 100%;
+  }
+  .selection__input {
+    width: 50%;
   }
 }
 
@@ -305,6 +308,20 @@ iframe {
   backdrop-filter: blur(3px);
   z-index: 5;
 }
+#round-label {
+  display: inline-block;
+  margin-top: 12px;
+  text-align: center;
+}
+#input--round {
+  max-width: 105px;
+  width: 20%;
+  padding: 5px;
+  border: 2px solid #000;
+  font-size: 1em;
+  text-align: center;
+  background-color: var(--color-primary-selection__btn);
+}
 #btn--close {
   position: absolute;
   top: 0;
@@ -324,8 +341,21 @@ iframe {
 }
 @media only screen and (min-width: 920px) {
   .modal {
+    min-width: 907px;
     margin: 0 auto;
     font-size: 1.6em;
+  }
+  #round-label {
+    position: absolute;
+    top: 1rem;
+    right: 1px;
+    width: 40%;
+  }
+  #input--round {
+    position: absolute;
+    top: 5rem;
+    right: 8rem;
+    font-size: 1em;
   }
   #btn--close {
     right: 2rem;
@@ -391,7 +421,7 @@ iframe {
   #modes-label {
     position: absolute;
     top: 1rem;
-    right: 8rem;
+    right: 12rem;
     display: inline-block;
     width: 40%;
     text-align: center;
@@ -399,7 +429,7 @@ iframe {
   #modes {
     position: absolute;
     top: 4rem;
-    right: 8rem;
+    right: 12rem;
     width: 40%;
     justify-content: flex-end;
     align-items: center;
