@@ -92,38 +92,38 @@ iframe {
 }
 
 /* 
- *
  * Main 
+ *
  *
  *
  */
 
-#main {
+.main {
   width: 100%;
   height: 100%;
   padding: 5px 0;
   font-size: 1rem;
   overflow: auto;
 }
-#title {
+.main__label {
   width: 100%;
   margin: 12px;
   font-size: 3em;
 }
 
 @media only screen and (min-width: 499px) {
-  #title {
+  .main__label {
     font-size: 4em;
     text-align: center;
   }
 }
 @media only screen and (min-width: 920px) {
-  #main {
+  .main {
     width: 90%;
     margin: 0 auto;
     overflow: hidden;
   }
-  #title {
+  .main__label {
     margin-left: auto;
     margin-right: auto;
     font-size: 6em;
@@ -132,29 +132,39 @@ iframe {
 
 /* 
  *
- *
  * Hands
+ *
  *
  */
 
-#hands .selection__btn {
+.selection--hands .selection__btn {
   font-weight: 600;
 }
 
 @media only screen and (min-width: 920px) {
-  #hands .selection__btn {
+  .selection--hands .selection__btn {
     margin: 2px auto;
   }
 }
 
 /* 
  *
- *
  * Game
+ *
  *
  */
 
-#game-label {
+.game {
+  width: 100%;
+  margin-top: 24px;
+  font-size: 1rem;
+}
+.game__container {
+  display: flex;
+  justify-content: center;
+  font-size: 1em;
+}
+.game__label {
   display: block;
   width: 90%;
   padding: 5px;
@@ -163,22 +173,44 @@ iframe {
   text-align: center;
   background-color: var(--color-primary);
 }
-#game {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 24px;
-  font-size: 1em;
+
+@media only screen and (min-width: 499px) {
+  .game__container {
+    font-size: 1.5em;
+  }
+  .game__label {
+    font-size: 1.6em;
+  }
 }
+@media only screen and (min-width: 920px) {
+  .game__container {
+    align-items: center;
+    width: 50%;
+    float: left;
+  }
+  .game__label {
+    width: 50%;
+    float: left;
+    margin-left: 12px;
+  }
+}
+
+/* 
+ *
+ *
+ * Player
+ *
+ */
+
 .player__name {
   font-weight: 600;
   font-size: 1.4em;
   text-align: center;
 }
-#name--0 {
+.player__name--0 {
   color: #f00;
 }
-#name--1 {
+.player__name--1 {
   color: #00f;
 }
 .player__score {
@@ -194,25 +226,7 @@ iframe {
   margin: 24px;
 }
 
-@media only screen and (min-width: 499px) {
-  #game-label {
-    font-size: 1.6em;
-  }
-  #game {
-    font-size: 1.5em;
-  }
-}
 @media only screen and (min-width: 920px) {
-  #game-label {
-    width: 50%;
-    float: left;
-    margin-left: 12px;
-  }
-  #game {
-    align-items: center;
-    width: 50%;
-    float: left;
-  }
   .player__hand {
     width: 90%;
   }
@@ -220,12 +234,12 @@ iframe {
 
 /* 
  *
- *
  * Options
+ *
  *
  */
 
-#options .selection__btn {
+.selection--options .selection__btn {
   max-width: 100%;
   max-height: 92px;
   margin: 2px auto;
@@ -233,7 +247,7 @@ iframe {
 }
 
 @media only screen and (min-width: 920px) {
-  #options {
+  .selection--options {
     margin: 7.5% 15px;
   }
 }
@@ -245,42 +259,42 @@ iframe {
  *
  */
 
-#footer {
+.footer {
   margin-top: 22px;
   width: 100%;
   font-size: 1em;
   text-align: center;
 }
-#footer a {
+.footer__link {
   padding: 12px;
   font-size: 1em;
   text-decoration: none;
   color: #333;
 }
-#footer a:hover {
+.footer__link:hover {
   text-decoration: underline;
   color: rgb(160, 160, 160);
 }
 
 @media only screen and (min-width: 499px) {
-  #footer {
+  .footer {
     font-size: 1.3em;
   }
 }
 @media only screen and (min-width: 920px) {
-  #footer {
+  .footer {
     width: 40%;
     float: right;
   }
-  #footer a {
+  .footer__link {
     margin-top: 12px;
     text-align: center;
   }
 }
 
 /* 
- *
  * Modal
+ *
  *
  *
  */
@@ -289,7 +303,7 @@ iframe {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 80%;
+  width: min(80%, 553px);
   padding: 1rem;
   border-radius: 5px;
   font-size: 1em;
@@ -308,12 +322,12 @@ iframe {
   backdrop-filter: blur(3px);
   z-index: 5;
 }
-#round-label {
+.modal__label--round {
   display: inline-block;
   margin-top: 12px;
   text-align: center;
 }
-#input--round {
+.modal__input--round {
   max-width: 105px;
   width: 20%;
   padding: 5px;
@@ -322,7 +336,7 @@ iframe {
   text-align: center;
   background-color: var(--color-primary-selection__btn);
 }
-#btn--close {
+.modal__btn--close {
   position: absolute;
   top: 0;
   right: 0;
@@ -341,59 +355,59 @@ iframe {
 }
 @media only screen and (min-width: 920px) {
   .modal {
-    min-width: 907px;
+    width: 896px;
     margin: 0 auto;
     font-size: 1.6em;
   }
-  #round-label {
+  .modal__label--round {
     position: absolute;
     top: 1rem;
     right: 1px;
     width: 40%;
   }
-  #input--round {
+  .modal__input--round {
     position: absolute;
     top: 5rem;
     right: 8rem;
     font-size: 1em;
   }
-  #btn--close {
+  .modal__btn--close {
     right: 2rem;
   }
 }
 
 /* 
  *
- *
  * Welcome
+ *
  *
  */
 
-#welcome * {
+.modal__item--welcome * {
   padding: 2px;
   margin: 5px;
 }
-#welcome p,
-#welcome h2 {
+.modal__item--welcome p,
+.modal__item--welcome h2 {
   text-align: center;
 }
-#welcome ul {
+.modal__item--welcome ul {
   width: 70%;
   margin: 0 auto;
 }
-#welcome ul > li {
+.modal__item--welcome ul > li {
   margin: 2px;
   font-size: 1.1em;
   list-style-type: disc;
 }
 
 @media only screen and (min-width: 499px) {
-  #welcome ul > li {
+  .modal__item--welcome ul > li {
     text-align: center;
   }
 }
 @media only screen and (min-width: 920px) {
-  #welcome {
+  .modal__item--welcome {
     display: inline-block;
     width: 50%;
     margin-top: 12px;
@@ -403,40 +417,36 @@ iframe {
 
 /* 
  *
- *
  * Modes
+ *
  *
  */
 
-#modes-label {
-  display: block;
-  margin-top: 12px;
-  text-align: center;
-}
-#modes {
+.selection--modes {
   margin: 5px;
+}
+.selection__label--modes {
+  display: block;
+  margin: 18px auto;
+  text-align: center;
 }
 
 @media only screen and (min-width: 920px) {
-  #modes-label {
+  .selection--modes {
     position: absolute;
     top: 1rem;
-    right: 12rem;
-    display: inline-block;
-    width: 40%;
-    text-align: center;
-  }
-  #modes {
-    position: absolute;
-    top: 4rem;
     right: 12rem;
     width: 40%;
     justify-content: flex-end;
     align-items: center;
     font-size: 1em;
   }
-  #modes .selection__btn {
+  .selection--modes .selection__btn {
     width: 50%;
+  }
+  .selection__label--modes {
+    width: 40%;
+    text-align: center;
   }
 }
 /* Class modifiers */

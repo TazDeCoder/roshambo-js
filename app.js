@@ -3,25 +3,25 @@
 // Selecting HTML elements
 // Buttons
 // --- HANDS ---
-const btnsHand = document.querySelectorAll("#hands .selection__btn");
-const btnRock = document.querySelector("#btn--rock");
-const btnPaper = document.querySelector("#btn--paper");
-const btnScissors = document.querySelector("#btn--scissors");
+const btnsHand = document.querySelectorAll(".selection--hands .selection__btn");
+const btnRock = document.querySelector(".selection__btn--rock");
+const btnPaper = document.querySelector(".selection__btn--paper");
+const btnScissors = document.querySelector(".selection__btn--scissors");
 // --- OTHERS ---
-const btnsMode = document.querySelectorAll("#modes .selection__btn");
-const btnThrow = document.querySelector("#btn--throw");
-const btnReset = document.querySelector("#btn--reset");
-const btnClose = document.querySelector("#btn--close");
+const btnsMode = document.querySelectorAll(".selection--modes .selection__btn");
+const btnThrow = document.querySelector(".selection__btn--throw");
+const btnReset = document.querySelector(".selection__btn--reset");
+const btnClose = document.querySelector(".modal__btn--close");
 // Labels
-const labelGame = document.querySelector("#game-label");
-const labelName0 = document.querySelector("#name--0");
-const labelScore0 = document.querySelector("#score--0");
-const labelScore1 = document.querySelector("#score--1");
+const labelGame = document.querySelector(".game__label");
+const labelName0 = document.querySelector(".player__name--0");
+const labelScore0 = document.querySelector(".player__score--0");
+const labelScore1 = document.querySelector(".player__score--1");
 // Images
-const imageHand0 = document.querySelector("#hand--0");
-const imageHand1 = document.querySelector("#hand--1");
+const imageHand0 = document.querySelector(".player__hand--0");
+const imageHand1 = document.querySelector(".player__hand--1");
 // Inputs
-const inputRound = document.querySelector("#input--round");
+const inputRound = document.querySelector(".modal__input--round");
 // Misc.
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
