@@ -88,7 +88,7 @@ function init() {
   btnScissors.classList.remove("selection__btn--active");
   labelGame.textContent = "Select an Element!";
   labelScore0.textContent = labelScore1.textContent = "0";
-  imageHand1.src = `./assets/images/default-left.png`;
+  imageHand1.src = `./assets/images/hands/default-left.png`;
   updateUI();
 }
 
@@ -112,7 +112,7 @@ function updateGame() {
 
 // Game UI Functions
 function updateUI() {
-  imageHand0.src = `./assets/images/${playerHand}-right.png`;
+  imageHand0.src = `./assets/images/hands/${playerHand}-right.png`;
   btnThrow.textContent = `Throw 👋 ${currHand.textContent
     .slice(0, 15)
     .concat("(Enter)")}!`;
@@ -158,7 +158,7 @@ function calcHand() {
     hand = generateRandHand(arr);
   }
   computerHand = !hand ? generateRandHand() : hand;
-  imageHand1.src = `./assets/images/${computerHand}-left.png`;
+  imageHand1.src = `./assets/images/hands/${computerHand}-left.png`;
 }
 
 function throwHands() {
