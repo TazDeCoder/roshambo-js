@@ -30,9 +30,9 @@ const overlay = document.querySelector(".overlay");
 let playerName,
   currMode,
   currHand,
+  lastPlayerHand,
   playerHand,
   computerHand,
-  lastPlayerHand,
   roundWinner,
   flag;
 
@@ -130,24 +130,28 @@ function changePlayerHand(self) {
 // Game Logic Functions
 function calcHand() {
   // NOTE: PLAN TO ADD DETAILED COMMENTS --> TO MAKE CODE MORE CLEAR + READABLE
-  let hand, idx;
-  const { player, computer } = game.winConditions;
-  const generateRandHand = (hands = ["rock", "paper", "scissors"]) => {
+  const generateRandomHand = (hands = ["rock", "paper", "scissors"]) => {
     const idx = Math.floor(Math.random() * hands.length);
     return hands[idx];
   };
+  let hand, idx;
+  const { player: playerWinConds, computer: computerWinConds } =
+    game.winConditions;
   // --- EASY MODE ---
   if (game.mode === "easy") {
     // Loops over object to workout idx (see below)
-    player.map((hands, i) => {
+    playerWinConds.map((hands, i) => {
       if (lastPlayerHand?.value === hands.hand1) idx = i;
     });
-    hand = roundWinner === "player" ? lastPlayerHand.value : player[idx]?.hand2;
+    hand =
+      roundWinner === "player"
+        ? lastPlayerHand.value
+        : playerWinConds[idx]?.hand2;
   } // --- HARD MODE ---
   else if (game.mode === "hard") {
     const arr = new Array(5);
     // Loops over object to workout idx (see below)
-    computer.map((hands, i) => {
+    computerWinConds.map((hands, i) => {
       if (lastPlayerHand?.value === hands.hand1) idx = i;
     });
     if (roundWinner === "player") {
@@ -155,9 +159,9 @@ function calcHand() {
       arr.fill(lastPlayerHand.value, 0, 2);
       arr.fill(game.winConditions.computer[idx].hand2, 2);
     }
-    hand = generateRandHand(arr);
+    hand = generateRandomHand(arr);
   }
-  computerHand = !hand ? generateRandHand() : hand;
+  computerHand = !hand ? generateRandomHand() : hand;
   imageHand1.src = `./assets/images/hands/${computerHand}-left.png`;
 }
 
@@ -169,10 +173,11 @@ function throwHands() {
     labelGame.textContent = "This Round is a Draw!";
     roundWinner = "";
   } else {
-    const { player, computer } = game.winConditions;
-    for (let i = 0; i < player.length; i++) {
-      const playerWinCond = Object.values(player[i]);
-      const computerWinCond = Object.values(computer[i]);
+    const { player: playerWinConds, computer: computerWinConds } =
+      game.winConditions;
+    for (let i = 0; i < playerWinConds.length; i++) {
+      const playerWinCond = Object.values(playerWinConds[i]);
+      const computerWinCond = Object.values(playerWinConds[i]);
       // Compares every hand to see if player won this round
       if (gameHands.every((hand, i) => hand === playerWinCond[i])) {
         roundWinner = "player";
