@@ -2,13 +2,10 @@
 
 // Selecting HTML elements
 // Buttons
-// --- HANDS ---
 const btnsHand = document.querySelectorAll(".selection--hands .selection__btn");
 const btnRock = document.querySelector(".selection__btn--rock");
 const btnPaper = document.querySelector(".selection__btn--paper");
 const btnScissors = document.querySelector(".selection__btn--scissors");
-// --- OTHERS ---
-const btnsMode = document.querySelectorAll(".selection--modes .selection__btn");
 const btnThrow = document.querySelector(".selection__btn--throw");
 const btnReset = document.querySelector(".selection__btn--reset");
 const btnClose = document.querySelector(".modal__btn--close");
@@ -25,10 +22,12 @@ const inputRound = document.querySelector(".modal__input--round");
 // Misc.
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
+// --- OTHERS ---
+const selectionModes = document.querySelector(".selection--modes");
+const selectionHands = document.querySelector(".selection--hands");
 
 // Initial variables
 let playerName,
-  currMode,
   currHand,
   lastPlayerHand,
   playerHand,
@@ -94,8 +93,7 @@ function init() {
 
 function loadGame() {
   (() => init())();
-  if (!currMode) return alert("MUST SELECT A MODE!");
-  game.mode = currMode.value;
+  if (!game.mode) return alert("MUST SELECT A MODE!");
   game.rounds = +inputRound.value;
   playerName = prompt("Ready! Enter Player Name: ");
   if (!playerName) playerName = "Player 1";
@@ -116,15 +114,6 @@ function updateUI() {
   btnThrow.textContent = `Throw 👋 ${currHand.textContent
     .slice(0, 15)
     .concat("(Enter)")}!`;
-}
-
-function changePlayerHand(self) {
-  playerHand = self.value;
-  self.classList.toggle("selection__btn--active");
-  currHand.classList.toggle("selection__btn--active");
-  currHand.blur();
-  currHand = self;
-  updateUI();
 }
 
 // Game Logic Functions
@@ -177,7 +166,7 @@ function throwHands() {
       game.winConditions;
     for (let i = 0; i < playerWinConds.length; i++) {
       const playerWinCond = Object.values(playerWinConds[i]);
-      const computerWinCond = Object.values(playerWinConds[i]);
+      const computerWinCond = Object.values(computerWinConds[i]);
       // Compares every hand to see if player won this round
       if (gameHands.every((hand, i) => hand === playerWinCond[i])) {
         roundWinner = "player";
@@ -210,35 +199,43 @@ function checkGameWinner() {
 }
 
 // Event Handlers
-btnsMode.forEach(function (btn) {
-  btn.addEventListener("click", function () {
-    game.mode = this.value;
-    this.classList.toggle("selection__btn--active");
-    currMode?.classList.toggle("selection__btn--active");
-    currMode?.blur();
-    currMode = this;
-  });
+selectionModes.addEventListener("click", function (e) {
+  const clicked = e.target;
+  if (clicked.classList.contains("selection__btn")) {
+    const [...btns] = this.querySelectorAll(".selection__btn");
+    btns.forEach((btn) => btn.classList.remove("selection__btn--active"));
+    clicked.classList.add("selection__btn--active");
+    game.mode = clicked.value;
+  }
 });
 
-btnsHand.forEach(function (btn) {
-  btn.addEventListener("click", function () {
-    if (flag) changePlayerHand(this);
-  });
+selectionHands.addEventListener("click", function (e) {
+  if (flag) {
+    const clicked = e.target;
+    if (!clicked) return;
+    changePlayerHand(clicked);
+  }
 });
 
 btnThrow.addEventListener("click", function () {
   if (flag) updateGame();
 });
 
-btnReset.addEventListener("click", function () {
-  this.blur();
-  init();
-});
-
+btnReset.addEventListener("click", init);
 btnClose.addEventListener("click", loadGame);
 overlay.addEventListener("click", loadGame);
 
 // --- KEYBOARD SUPPORT ---
+function changePlayerHand(self) {
+  const [...btns] = selectionHands.querySelectorAll(".selection__btn");
+  btns.forEach((btn) => btn.classList.remove("selection__btn--active"));
+  self.classList.add("selection__btn--active");
+  currHand.blur();
+  playerHand = self.value;
+  currHand = self;
+  updateUI();
+}
+
 document.addEventListener("keyup", function (e) {
   if (flag) {
     switch (e.key.toLowerCase()) {
