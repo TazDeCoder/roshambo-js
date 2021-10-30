@@ -5,7 +5,6 @@
 ///////////////////////////////////////////////
 
 // Buttons
-const btnsHand = document.querySelectorAll(".selection--hands .selection__btn");
 const btnRock = document.querySelector(".selection__btn--rock");
 const btnPaper = document.querySelector(".selection__btn--paper");
 const btnScissors = document.querySelector(".selection__btn--scissors");
@@ -15,6 +14,7 @@ const btnClose = document.querySelector(".modal__btn--close");
 // Labels
 const labelGame = document.querySelector(".game__label");
 const labelName0 = document.querySelector(".player__name--0");
+const labelName1 = document.querySelector(".player__name--1");
 const labelScore0 = document.querySelector(".player__score--0");
 const labelScore1 = document.querySelector(".player__score--1");
 // Images
@@ -33,7 +33,7 @@ const selectionHands = document.querySelector(".selection--hands");
 ////// Global variables
 ///////////////////////////////////////////////
 
-let playerName, currPlayerHand, lastPlayerHand, flag;
+let currHand0, lastHand0;
 
 const game = {
   mode: "",
@@ -43,6 +43,7 @@ const game = {
     player: 0,
     computer: 0,
   },
+  flag: null,
   winConditions: {
     player: [
       {
@@ -81,11 +82,12 @@ const game = {
 
 function init() {
   // Reset game values
-  currPlayerHand = btnRock;
-  lastPlayerHand = game.roundWinner = "";
+  currHand0 = btnRock;
+  lastHand0 = game.roundWinner = "";
   game.scores.player = game.scores.computer = 0;
-  flag = true;
+  game.flag = true;
   // Clean-up UI
+  btnReset.blur();
   btnRock.classList.add("selection__btn--active");
   btnPaper.classList.remove("selection__btn--active");
   btnScissors.classList.remove("selection__btn--active");
@@ -96,7 +98,7 @@ function init() {
 }
 
 function loadGame() {
-  (() => init())();
+  let playerName;
   if (!game.mode) return alert("MUST SELECT A MODE!");
   game.rounds = +inputRound.value;
   playerName = prompt("Ready! Enter Player Name: ");
@@ -104,16 +106,12 @@ function loadGame() {
   labelName0.textContent = playerName;
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
-}
-
-function updateGame() {
-  throwHands(currPlayerHand, calcHand());
-  checkGameWinner();
+  (() => init())();
 }
 
 function updateUI() {
-  imageHand0.src = `./assets/images/hands/${currPlayerHand.value}-right.png`;
-  btnThrow.textContent = `Throw 👋 ${currPlayerHand.textContent
+  imageHand0.src = `./assets/images/hands/${currHand0.value}-right.png`;
+  btnThrow.textContent = `Throw 👋 ${currHand0.textContent
     .slice(0, 15)
     .concat("(Enter)")}!`;
 }
@@ -122,45 +120,46 @@ function updateUI() {
 ////// Game Logic
 ///////////////////////////////////////////////
 
-function calcHand() {
-  // NOTE: PLAN TO ADD DETAILED COMMENTS --> TO MAKE CODE MORE CLEAR + READABLE
-  const generateRandomHand = (hands = [btnRock, btnPaper, btnScissors]) => {
-    const idx = Math.floor(Math.random() * hands.length);
-    return hands[idx];
-  };
+function updateGame() {
+  throwHands(currHand0, calcHand1());
+  isGameWinner();
+}
+
+function calcHand1() {
   let computerHand, hand, idx;
   const { player: playerWinConds, computer: computerWinConds } =
     game.winConditions;
+  const generateRandHand = (hands = [btnRock, btnPaper, btnScissors]) => {
+    const idx = Math.floor(Math.random() * hands.length);
+    return hands[idx];
+  };
   // --- EASY MODE ---
   if (game.mode === "easy") {
     playerWinConds.map((hands, i) => {
-      if (lastPlayerHand?.value === hands.hand1) idx = i;
+      if (lastHand0 === hands.hand1) idx = i;
     });
     hand =
-      game.roundWinner === "player"
-        ? lastPlayerHand
-        : playerWinConds[idx]?.hand2;
+      game.roundWinner === "player" ? lastHand0 : playerWinConds[idx].hand2;
   } // --- HARD MODE ---
   else if (game.mode === "hard") {
-    const arr = new Array(5);
     computerWinConds.map((hands, i) => {
-      if (lastPlayerHand?.value === hands.hand1) idx = i;
+      if (lastHand0 === hands.hand1) idx = i;
     });
     if (game.roundWinner === "player") {
-      // Filling array --> used for probability
-      arr.fill(lastPlayerHand, 0, 2);
+      const arr = new Array(5); // Used for probability
+      arr.fill(lastHand0, 0, 2);
       arr.fill(game.winConditions.computer[idx].hand2, 2);
+      hand = generateRandHand(arr);
     }
-    hand = generateRandomHand(arr);
   }
-  computerHand = !hand ? generateRandomHand() : hand;
+  computerHand = !hand ? generateRandHand() : hand;
   imageHand1.src = `./assets/images/hands/${computerHand.value}-left.png`;
   return computerHand;
 }
 
 function throwHands(h1, h2) {
+  lastHand0 = h1;
   const hands = [h1, h2];
-  lastPlayerHand = h1;
   // Checks if player hand matches computer hand
   if (h1 === h2) {
     labelGame.textContent = "This Round is a Draw!";
@@ -184,22 +183,23 @@ function throwHands(h1, h2) {
         labelScore1.textContent = game.scores.computer;
       }
     }
-    labelGame.textContent =
+    labelGame.textContent = `${
       game.roundWinner === "player"
-        ? `${playerName} Wins This Round!`
-        : "CPU Wins This Round!";
+        ? labelName0.textContent
+        : labelName1.textContent
+    } Wins This Round!`;
   }
 }
 
-function checkGameWinner() {
+function isGameWinner() {
   // Checks if either player or CPU wins the game
-  if (
-    game.scores.player === game.rounds ||
-    game.scores.computer === game.rounds
-  ) {
-    labelGame.textContent =
-      game.roundWinner === "player" ? `${playerName} Wins 🏆!` : "CPU Wins 🤖!";
-    flag = false;
+  if (Object.values(game.scores).some((score) => score === game.rounds)) {
+    labelGame.textContent = `${
+      game.roundWinner === "player"
+        ? labelName0.textContent
+        : labelName1.textContent
+    } Wins ${game.roundWinner === "player" ? "🧐" : "🤖"}🏆!`;
+    game.flag = false;
   }
 }
 
@@ -218,7 +218,7 @@ selectionModes.addEventListener("click", function (e) {
 });
 
 selectionHands.addEventListener("click", function (e) {
-  if (flag) {
+  if (game.flag) {
     const clicked = e.target;
     if (!clicked) return;
     changePlayerHand(clicked);
@@ -226,7 +226,7 @@ selectionHands.addEventListener("click", function (e) {
 });
 
 btnThrow.addEventListener("click", function () {
-  if (flag) updateGame();
+  if (game.flag) updateGame();
 });
 
 btnReset.addEventListener("click", init);
@@ -238,13 +238,13 @@ function changePlayerHand(self) {
   const [...btns] = selectionHands.querySelectorAll(".selection__btn");
   btns.forEach((btn) => btn.classList.remove("selection__btn--active"));
   self.classList.add("selection__btn--active");
-  currPlayerHand.blur();
-  currPlayerHand = self;
+  currHand0.blur();
+  currHand0 = self;
   updateUI();
 }
 
 document.addEventListener("keyup", function (e) {
-  if (flag) {
+  if (game.flag) {
     switch (e.key.toLowerCase()) {
       case "enter":
         return updateGame();
