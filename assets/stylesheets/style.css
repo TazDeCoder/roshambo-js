@@ -33,10 +33,10 @@ iframe {
 }
 :root {
   --color-primary: #ffffff;
-  --color-primary-selection__btn: #e4e2e2;
-  --color-primary-selection__btn--hover: #cfcdcd;
-  --color-secondary-selection__btn: #5a5a5a;
-  --color-secondary-selection__btn--hover: #4e4e4e;
+  --color-primary-selection__btn: #e7e7e7;
+  --color-primary-selection__btn--hover: #c5c5c5;
+  --color-secondary-selection__btn: #777777;
+  --color-secondary-selection__btn--hover: #616161;
 }
 /* Content */
 
@@ -66,7 +66,7 @@ iframe {
     text-align: center;
   }
 }
-@media only screen and (min-width: 920px) {
+@media only screen and (min-width: 768px) {
   .main {
     width: 90%;
     margin: 0 auto;
@@ -115,7 +115,7 @@ iframe {
     font-size: 1.2rem;
   }
 }
-@media only screen and (min-width: 920px) {
+@media only screen and (min-width: 768px) {
   .selection {
     display: inline-flex;
     flex-direction: column;
@@ -142,7 +142,7 @@ iframe {
   font-weight: 600;
 }
 
-@media only screen and (min-width: 920px) {
+@media only screen and (min-width: 768px) {
   .selection--hands .selection__btn {
     margin: 2px auto;
   }
@@ -183,7 +183,7 @@ iframe {
     font-size: 1.6em;
   }
 }
-@media only screen and (min-width: 920px) {
+@media only screen and (min-width: 768px) {
   .game__container {
     align-items: center;
     width: 50%;
@@ -227,7 +227,7 @@ iframe {
   margin: 24px;
 }
 
-@media only screen and (min-width: 920px) {
+@media only screen and (min-width: 768px) {
   .player__hand {
     width: 90%;
   }
@@ -247,7 +247,7 @@ iframe {
   font-weight: 700;
 }
 
-@media only screen and (min-width: 920px) {
+@media only screen and (min-width: 768px) {
   .selection--options {
     margin: 7.5% 15px;
   }
@@ -282,7 +282,7 @@ iframe {
     font-size: 1.3em;
   }
 }
-@media only screen and (min-width: 920px) {
+@media only screen and (min-width: 768px) {
   .footer {
     width: 40%;
     float: right;
@@ -304,7 +304,7 @@ iframe {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(80%, 553px);
+  width: 80%;
   padding: 16px;
   font-size: 1rem;
   border-radius: 5px;
@@ -317,142 +317,135 @@ iframe {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
+  height: 90%;
+  font-size: 1em;
 }
 .modal__item {
-  margin: 5px;
+  padding: 5px;
   text-align: center;
 }
-.modal__item .modal__btn {
+.modal__title {
+  margin: 12px auto;
+  font-size: 1.2em;
+}
+.modal__label {
+  display: inline-block;
+  line-height: 1.2;
+  text-align: center;
+}
+.modal__list {
+  width: 50%;
+  margin: 5px auto;
+  font-size: 1.1em;
+  line-height: 1.3;
+  list-style: square;
+}
+.modal__btn {
   padding: 12px;
   border: 2px solid #000;
   font-size: 1.2em;
   background-color: var(--color-primary-selection__btn);
 }
-.modal__item .modal__btn:hover {
+.modal__btn:hover {
   background-color: var(--color-primary-selection__btn--hover);
 }
-.modal__item .modal__btn--active {
+.modal__btn--active {
   background-color: var(--color-secondary-selection__btn);
 }
-.modal__item .modal__btn--active:hover {
+.modal__btn--active:hover {
   background-color: var(--color-secondary-selection__btn--hover);
 }
-.modal__label {
-  font-size: 1.2em;
-}
-.modal__btn--close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: auto;
-  font-size: 4em;
-  color: #333;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-@media only screen and (min-width: 499px) {
-  .modal {
-    font-size: 1.3rem;
-  }
-}
-@media only screen and (min-width: 920px) {
-  .modal {
-    min-width: 896px;
-    font-size: 1.6rem;
-  }
-  .modal__container {
-    flex-direction: row;
-    align-items: center;
-    width: 90%;
-    margin: 0 auto;
-  }
-}
-
-/* 
- *
- * Welcome
- *
- *
- */
-
-.modal__item--welcome * {
-  padding: 2px;
-}
-.modal__item--welcome ul {
-  width: 50%;
-  margin: 0 auto;
-  font-size: 1.1em;
-  line-height: 1.3;
-  list-style: square;
-}
-
-@media only screen and (min-width: 499px) {
-  .modal__item--welcome ul {
-    width: 40%;
-  }
-}
-@media only screen and (min-width: 920px) {
-  .modal__item--welcome ul {
-    width: 80%;
-  }
-  .modal__item--welcome {
-    width: 40%;
-    margin: 12px 0;
-  }
-}
-
-/* 
- *
- * Modes
- *
- *
- */
-
-.modal__item--modes {
-  width: 100%;
-  font-size: 1em;
-}
-.modal__label--modes {
-  margin: 18px auto;
-}
-
-@media only screen and (min-width: 920px) {
-  .modal__item--modes {
-    flex-direction: column;
-    align-items: center;
-    width: 40%;
-    font-size: 1em;
-  }
-}
-
-/* 
- *
- * Options
- *
- *
- */
-
-.modal__label--options {
-  margin: 18px auto;
-}
-.modal__item--options .modal__input {
+.modal__input {
   padding: 5px;
   font-size: 1em;
   text-align: center;
   border: 2px solid #000;
   background-color: var(--color-primary-selection__btn);
 }
+.modal__btn--close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  margin: 12px;
+  font-size: 4em;
+  color: #333;
+  line-height: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.modal__btn--close:hover {
+  background: none;
+}
 
-@media only screen and (min-width: 920px) {
-  .modal__item--options .modal__label {
+@media only screen and (min-width: 499px) {
+  .modal__container {
+    font-size: 1.3em;
+  }
+  .modal__list {
     width: 40%;
   }
-  .modal__item--options .modal__input {
-    font-size: 1em;
+}
+@media only screen and (min-width: 768px) {
+  .modal {
+    width: 90%;
+    height: 60%;
+    overflow: visible;
   }
+  .modal__container {
+    flex-direction: row;
+    align-items: center;
+    font-size: 1.4em;
+  }
+  .modal__list {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 964px) {
+  .modal__container {
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+    font-size: 1.6em;
+  }
+}
+
+/* 
+ * 
+ * Welcome
+ *
+ *
+ */
+
+@media only screen and (min-width: 768px) {
+  .modal__label--welcome {
+    min-width: 247px;
+  }
+}
+
+/* 
+ * 
+ * Mode
+ *
+ *
+ */
+
+@media only screen and (min-width: 768px) {
+  .modal__title--modes {
+    min-width: 211px;
+  }
+}
+
+/* 
+ * 
+ * Mode
+ *
+ *
+ */
+
+.modal__label--round {
+  margin: 0 12px;
 }
 
 /* Class modifiers */
