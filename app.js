@@ -25,7 +25,7 @@ const inputRound = document.querySelector(".modal__input--round");
 // Misc.
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
-// Others
+// Parents
 const modalItemModes = document.querySelector(".modal__item--modes");
 const selectionHands = document.querySelector(".selection--hands");
 
@@ -98,12 +98,10 @@ function init() {
 }
 
 function loadGame() {
-  let playerName;
   if (!game.mode) return alert("MUST SELECT A MODE!");
   game.rounds = +inputRound.value;
-  playerName = prompt("Ready! Enter Player Name: ");
-  if (!playerName) playerName = "Player 1";
-  labelName0.textContent = playerName;
+  const playerName = prompt("Ready! Enter Player Name: ");
+  labelName0.textContent = !playerName ? "Player 1" : playerName;
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
   (() => init())();
@@ -125,40 +123,7 @@ function updateGame() {
   isGameWinner();
 }
 
-function calcHand1() {
-  let computerHand, hand, idx;
-  const { player: playerWinConds, computer: computerWinConds } =
-    game.winConditions;
-  const generateRandHand = (hands = [btnRock, btnPaper, btnScissors]) => {
-    const idx = Math.floor(Math.random() * hands.length);
-    return hands[idx];
-  };
-  // --- EASY MODE ---
-  if (game.mode === "easy") {
-    playerWinConds.map((hands, i) => {
-      if (lastHand0 === hands.hand1) idx = i;
-    });
-    hand =
-      game.roundWinner === "player" ? lastHand0 : playerWinConds[idx].hand2;
-  } // --- HARD MODE ---
-  else if (game.mode === "hard") {
-    computerWinConds.map((hands, i) => {
-      if (lastHand0 === hands.hand1) idx = i;
-    });
-    if (game.roundWinner === "player") {
-      const arr = new Array(5); // Used for probability
-      arr.fill(lastHand0, 0, 2);
-      arr.fill(game.winConditions.computer[idx].hand2, 2);
-      hand = generateRandHand(arr);
-    }
-  }
-  computerHand = !hand ? generateRandHand() : hand;
-  imageHand1.src = `./assets/images/hands/${computerHand.value}-left.png`;
-  return computerHand;
-}
-
 function throwHands(h1, h2) {
-  lastHand0 = h1;
   const hands = [h1, h2];
   // Checks if player hand matches computer hand
   if (h1 === h2) {
@@ -189,6 +154,7 @@ function throwHands(h1, h2) {
         : labelName1.textContent
     } Wins This Round!`;
   }
+  lastHand0 = h1;
 }
 
 function isGameWinner() {
@@ -201,6 +167,37 @@ function isGameWinner() {
     } Wins ${game.roundWinner === "player" ? "🧐" : "🤖"}🏆!`;
     game.flag = false;
   }
+}
+
+function calcHand1() {
+  let computerHand, hand, idx;
+  const { player: playerWinConds, computer: computerWinConds } =
+    game.winConditions;
+  const generateRandHand = (hands = [btnRock, btnPaper, btnScissors]) =>
+    hands[Math.floor(Math.random() * hands.length)];
+  // --- EASY MODE ---
+  if (game.mode === "easy") {
+    playerWinConds.map((hands, i) => {
+      if (lastHand0 === hands.hand1) idx = i;
+    });
+    hand =
+      game.roundWinner === "player" ? lastHand0 : playerWinConds[idx]?.hand2;
+  } // --- HARD MODE ---
+  else if (game.mode === "hard") {
+    computerWinConds.map((hands, i) => {
+      if (lastHand0 === hands.hand1) idx = i;
+    });
+    if (game.roundWinner === "player") {
+      const arr = new Array(5); // Used for probability
+      arr.fill(lastHand0, 0, 2);
+      arr.fill(game.winConditions.computer[idx]?.hand2, 2);
+      console.log(arr);
+      hand = generateRandHand(arr);
+    }
+  }
+  computerHand = !hand ? generateRandHand() : hand;
+  imageHand1.src = `./assets/images/hands/${computerHand.value}-left.png`;
+  return computerHand;
 }
 
 ////////////////////////////////////////////////
