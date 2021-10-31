@@ -12,7 +12,7 @@
 
 ## Description
 
-Player versus CPU where the first to win all rounds wins the game!
+Player versus CPU where the first to win all rounds wins!
 
 **Features:**
 
@@ -20,15 +20,12 @@ Player versus CPU where the first to win all rounds wins the game!
 - Intuitive Design
 - Keyboard Support
 - Difficulty Modes
+- **NEW**: Round Selector
 
 **TASK-LIST:**
 
-- [x] Keyboard Support
-- [x] Difficulty Mode
-- [ ] Round Selector - nearly done!
+- [x] Round Selector
 - [ ] Ai Matches
-
-**_None at the moment, but feel free to suggest any :)_**
 
 ## Installation
 
