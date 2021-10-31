@@ -26,7 +26,7 @@ const inputRound = document.querySelector(".modal__input--round");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 // Others
-const selectionModes = document.querySelector(".selection--modes");
+const modalItemModes = document.querySelector(".modal__item--modes");
 const selectionHands = document.querySelector(".selection--hands");
 
 ////////////////////////////////////////////////
@@ -207,12 +207,12 @@ function isGameWinner() {
 ////// Event Handlers
 ///////////////////////////////////////////////
 
-selectionModes.addEventListener("click", function (e) {
+modalItemModes.addEventListener("click", function (e) {
   const clicked = e.target;
-  if (clicked.classList.contains("selection__btn")) {
-    const [...btns] = this.querySelectorAll(".selection__btn");
-    btns.forEach((btn) => btn.classList.remove("selection__btn--active"));
-    clicked.classList.add("selection__btn--active");
+  if (clicked.classList.contains("modal__btn")) {
+    const [...btns] = this.querySelectorAll(".modal__btn");
+    btns.forEach((btn) => btn.classList.remove("modal__btn--active"));
+    clicked.classList.add("modal__btn--active");
     game.mode = clicked.value;
   }
 });

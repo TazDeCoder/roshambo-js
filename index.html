@@ -74,32 +74,32 @@
     </main>
     <!-- Displays the game start-up popup -->
     <div class="modal">
-      <div class="modal__item modal__item--welcome">
-        <h2>Welcome! 😃</h2>
-        <p>The Rules are Simple!</p>
-        <ul>
-          <li>Rock 🧱 Beats ✂ Scissors</li>
-          <li>Scissors ✂ Beats 📰 Paper</li>
-          <li>Paper 📰 Beats 🧱 Rock</li>
-        </ul>
+      <div class="modal__container">
+        <div class="modal__item modal__item--welcome">
+          <h2>Welcome! 😃</h2>
+          <p>The Rules are Simple!</p>
+          <ul>
+            <li>🧱 Beats ✂</li>
+            <li>✂ Beats 📰</li>
+            <li>📰 Beats 🧱</li>
+          </ul>
+        </div>
+        <div class="modal__item modal__item--modes">
+            <p class="modal__label modal__label--modes">Select a Diffculty!</p>
+            <button class="modal__btn modal__btn--easy" value="easy" >
+              Easy 👶
+            </button>
+            <button value="hard" class="modal__btn modal__btn--hard">
+              Hard 💪
+            </button>
+        </div>
+        <div class="modal__item modal__item--options">
+          <p class="modal__label modal__label--options">Configure Options</p>
+          <input class="modal__input modal__input--round" type="number" min="1" max="5" value="3"  />
+        </div>
+        <button class="modal__btn--close">&times;</button>
       </div>
-      <div class="modal__item">
-        <section class="selection selection--modes">
-          <p class="selection__label selection__label--modes">Select a Diffculty!</p>
-          <button class="selection__btn selection__btn--easy" value="easy" >
-            Easy 👶
-          </button>
-          <button value="hard" class="selection__btn selection__btn--hard">
-            Hard 💪
-          </button>
-        </section>
-      </div>
-    <div class="modal__item">
-      <p class="modal__label modal__label--round">Configure Rounds</p>
-      <input class="modal__input modal__input--round" type="number" min="1" max="5" value="3"  />
     </div>
-    <button class="modal__btn--close">&times;</button>
-  </div>
     <div class="overlay"></div>
     <script src="./app.js"></script>
   </body>
