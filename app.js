@@ -5,12 +5,12 @@
 ///////////////////////////////////////////////
 
 // Buttons
-const btnRock = document.querySelector(".selection__btn--rock");
-const btnPaper = document.querySelector(".selection__btn--paper");
-const btnScissors = document.querySelector(".selection__btn--scissors");
-const btnThrow = document.querySelector(".selection__btn--throw");
-const btnReset = document.querySelector(".selection__btn--reset");
-const btnClose = document.querySelector(".modal__btn--close");
+const btnRock = document.querySelector(".nav__btn--rock");
+const btnPaper = document.querySelector(".nav__btn--paper");
+const btnScissors = document.querySelector(".nav__btn--scissors");
+const btnThrow = document.querySelector(".nav__btn--throw");
+const btnReset = document.querySelector(".nav__btn--reset");
+const btnClose = document.querySelector(".btn--close-modal");
 // Labels
 const labelGame = document.querySelector(".game__label");
 const labelName0 = document.querySelector(".player__name--0");
@@ -22,12 +22,11 @@ const imageHand0 = document.querySelector(".player__hand--0");
 const imageHand1 = document.querySelector(".player__hand--1");
 // Inputs
 const inputRound = document.querySelector(".modal__input--round");
-// Misc.
+// Parents
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
-// Parents
 const modalItemModes = document.querySelector(".modal__item--modes");
-const selectionHands = document.querySelector(".selection--hands");
+const navHands = document.querySelector(".nav--hands");
 
 ////////////////////////////////////////////////
 ////// Global variables
@@ -43,7 +42,7 @@ const game = {
     player: 0,
     computer: 0,
   },
-  flag: null,
+  flag: true,
   winConditions: {
     player: [
       {
@@ -88,20 +87,22 @@ function init() {
   game.flag = true;
   // Clean-up UI
   btnReset.blur();
-  btnRock.classList.add("selection__btn--active");
-  btnPaper.classList.remove("selection__btn--active");
-  btnScissors.classList.remove("selection__btn--active");
-  labelGame.textContent = "Select an Element!";
+  btnRock.classList.add("btn--active");
+  btnPaper.classList.remove("btn--active");
+  btnScissors.classList.remove("btn--active");
+  updateGameLabel("Select a Hand!");
   labelScore0.textContent = labelScore1.textContent = "0";
   imageHand1.src = `./assets/images/hands/default-left.png`;
   updateUI();
 }
 
+const updateGameLabel = (text) => (labelGame.textContent = text);
+
 function loadGame() {
   if (!game.mode) return alert("MUST SELECT A MODE!");
   game.rounds = +inputRound.value;
   const playerName = prompt("Ready! Enter Player Name: ");
-  labelName0.textContent = !playerName ? "Player 1" : playerName;
+  labelName0.textContent = !playerName ? "Player1" : playerName;
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
   (() => init())();
@@ -127,7 +128,8 @@ function throwHands(h1, h2) {
   const hands = [h1, h2];
   // Checks if player hand matches computer hand
   if (h1 === h2) {
-    labelGame.textContent = "This Round is a Draw!";
+    const str = "This Round is a Draw!";
+    updateGameLabel(str);
     game.roundWinner = "";
   } else {
     // Else either player or computer has won
@@ -148,11 +150,12 @@ function throwHands(h1, h2) {
         labelScore1.textContent = game.scores.computer;
       }
     }
-    labelGame.textContent = `${
+    const str = `${
       game.roundWinner === "player"
         ? labelName0.textContent
         : labelName1.textContent
     } Wins This Round!`;
+    updateGameLabel(str);
   }
   lastHand0 = h1;
 }
@@ -160,11 +163,12 @@ function throwHands(h1, h2) {
 function isGameWinner() {
   // Checks if either player or CPU wins the game
   if (Object.values(game.scores).some((score) => score === game.rounds)) {
-    labelGame.textContent = `${
+    const str = `${
       game.roundWinner === "player"
         ? labelName0.textContent
         : labelName1.textContent
     } Wins ${game.roundWinner === "player" ? "🧐" : "🤖"}🏆!`;
+    updateGameLabel(str);
     game.flag = false;
   }
 }
@@ -206,15 +210,16 @@ function calcHand1() {
 
 modalItemModes.addEventListener("click", function (e) {
   const clicked = e.target;
+  if (!clicked) return;
   if (clicked.classList.contains("modal__btn")) {
     const [...btns] = this.querySelectorAll(".modal__btn");
-    btns.forEach((btn) => btn.classList.remove("modal__btn--active"));
-    clicked.classList.add("modal__btn--active");
+    btns.forEach((btn) => btn.classList.remove("btn--active"));
+    clicked.classList.add("btn--active");
     game.mode = clicked.value;
   }
 });
 
-selectionHands.addEventListener("click", function (e) {
+navHands.addEventListener("click", function (e) {
   if (game.flag) {
     const clicked = e.target;
     if (!clicked) return;
@@ -232,9 +237,9 @@ overlay.addEventListener("click", loadGame);
 
 // --- KEYBOARD SUPPORT ---
 function changePlayerHand(self) {
-  const [...btns] = selectionHands.querySelectorAll(".selection__btn");
-  btns.forEach((btn) => btn.classList.remove("selection__btn--active"));
-  self.classList.add("selection__btn--active");
+  const [...btns] = navHands.querySelectorAll(".nav__btn");
+  btns.forEach((btn) => btn.classList.remove("btn--active"));
+  self.classList.add("btn--active");
   currHand0.blur();
   currHand0 = self;
   updateUI();
