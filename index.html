@@ -22,83 +22,98 @@
   </head>
   <body>
     <main class="main">
-      <h1 class="main__label">Roshambo</h1>
-      <!-- Buttons to select hand -->
-      <section class="selection selection--hands">
-        <button class="selection__btn selection__btn--active selection__btn--rock" value="rock">
+      <h1 class="main__header">Roshambo</h1>
+      <!-- Navbar to select hands -->
+      <nav class="nav nav--hands">
+        <button
+          class="btn nav__btn nav__btn--rock nav__btn--active"
+          value="rock"
+        >
           🧱 <br />
           (q)
         </button>
-        <button class="selection__btn selection__btn--paper" value="paper">
+        <button class="btn nav__btn nav__btn--paper" value="paper">
           📰 <br />
           (w)
         </button>
-        <button class="selection__btn selection__btn--scissors" value="scissors">
+        <button class="btn nav__btn nav__btn--scissors" value="scissors">
           ✂ <br />
           (e)
         </button>
-      </section>
-      <!-- Displays the game to user -->
+      </nav>
+      <!-- Displays the game -->
       <section class="game">
-        <p class="game__label">Select an Element!</p>
-        <div class="game__container">
-        <div class="player player--0">
-          <p class="player__name player__name--0">Player 1</p>
-          <p class="player__score player__score--0">0</p>
-          <img
-            class="player__hand player__hand--0"
-            src="./assets/images/hands/rock-right.png"
-          />
-        </div>
-        <div class="player player--1">
-          <p class="player__name player__name--1">CPU</p>
-          <p class="player__score player__score--1">0</p>
-          <img
-            class="player__hand player__hand--1"
-            src="./assets/images/hands/default-left.png"
-          />
+        <p class="game__label"></p>
+        <div class="container container--players">
+          <div class="player player--0">
+            <p class="player__name player__name--0"></p>
+            <p class="player__score player__score--0"></p>
+            <img
+              class="player__hand player__hand--0"
+              src="./assets/images/hands/rock-right.png"
+            />
+          </div>
+          <div class="player player--1">
+            <p class="player__name player__name--1">CPU</p>
+            <p class="player__score player__score--1"></p>
+            <img
+              class="player__hand player__hand--1"
+              src="./assets/images/hands/default-left.png"
+            />
+          </div>
         </div>
       </section>
-      <!-- Buttons for options -->
-      <section class="selection selection--options">
-        <button class="selection__btn selection__btn--throw">Throw! 👋🧱 (Enter)</button>
-        <button class="selection__btn selection__btn--reset">Reset</button>
+      <!-- Navbar to select options -->
+      <section class="nav nav--options">
+        <button class="btn nav__btn nav__btn--throw"></button>
+        <button class="btn nav__btn nav__btn--reset">Reset</button>
       </section>
       <!-- Footer -->
       <footer class="footer">
-        <!-- MUST INCLUDE -->
-        <a class="footer__link" href="https://www.freepik.com/vectors/background" 
+        <!-- CREDIT TO VECTOR ARTIST -->
+        <a
+          class="footer__link"
+          href="https://www.freepik.com/free-vector/rock-paper-scissor-game-set-with-middle-finger-sign_16294604.htm#page=1&query=rock%20paper%20scissors&position=0&from_view=search"
           >Hand vectors created by DrawingMyDiary - www.freepik.com</a
         >
       </footer>
     </main>
-    <!-- Displays the game start-up popup -->
+    <!-- Display the start-up game popup -->
     <div class="modal">
+      <button class="btn--close-modal">&times;</button>
       <div class="modal__container">
         <div class="modal__item modal__item--welcome">
-          <h2 class="modal__title modal__title--welcome">Welcome! 😃</h2>
-          <p class="modal__label modal__label--welcome">If This is Your First Time, <br> The Rules are Simple!</p>
-          <ul class="modal__list">
+          <h2 class="modal__header">Welcome! 😃</h2>
+          <p>
+            If This is Your First Time, <br />
+            The Rules are Simple!
+          </p>
+          <ul>
             <li>🧱 Beats ✂</li>
             <li>✂ Beats 📰</li>
             <li>📰 Beats 🧱</li>
           </ul>
         </div>
         <div class="modal__item modal__item--modes">
-            <h2 class="modal__title modal__title--modes">Select a Diffculty!</h2>
-            <button class="modal__btn modal__btn--easy" value="easy" >
-              Easy 👶
-            </button>
-            <button value="hard" class="modal__btn modal__btn--hard">
-              Hard 💪
-            </button>
+          <h2 class="modal__header">Select a Diffculty!</h2>
+          <button class="btn modal__btn modal__btn--easy" value="easy">
+            Easy 👶
+          </button>
+          <button value="hard" class="btn modal__btn modal__btn--hard">
+            Hard 💪
+          </button>
         </div>
         <div class="modal__item modal__item--options">
-          <h2 class="modal__title modal__title--options">Configure Options</h2>
-          <p class="modal__label modal__label--round">Rounds</p>
-          <input class="modal__input modal__input--round" type="number" min="1" max="5" value="3"  />
+          <h2 class="modal__header">Configure Options</h2>
+          <p class="modal__label">Rounds</p>
+          <input
+            class="modal__input modal__input--round"
+            type="number"
+            min="1"
+            max="5"
+            value="3"
+          />
         </div>
-        <button class="modal__btn modal__btn--close">&times;</button>
       </div>
     </div>
     <div class="overlay"></div>
