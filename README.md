@@ -1,14 +1,10 @@
 # Roshambo
 
-## Demo Previews
-
-![Demo preview for desktop](/assets/images/desktop-demo.png)
-
-![Demo preview for mobile](/assets/images/mobile-demo.png)
-
 ## Screenshots
 
-![Game startup menu](/assets/images/game-startup.png)
+![screenshots-0](/assets/images/desktop-demo.png)
+![screenshots-1](/assets/images/mobile-demo.png)
+![screenshots-2](/assets/images/game-startup.png)
 
 ## Description
 
@@ -25,7 +21,9 @@ Player versus CPU where the first to win all rounds wins!
 **TASK-LIST:**
 
 - [x] Round Selector
-- [ ] Ai Matches
+- [ ] ~Ai Matches~
+
+**_None at the moment, but feel free to suggest any :)_**
 
 ## Installation
 
