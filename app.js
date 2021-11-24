@@ -5,28 +5,28 @@
 ///////////////////////////////////////////////
 
 // Buttons
-const btnRock = document.querySelector(".nav__btn--rock");
-const btnPaper = document.querySelector(".nav__btn--paper");
-const btnScissors = document.querySelector(".nav__btn--scissors");
-const btnThrow = document.querySelector(".nav__btn--throw");
-const btnReset = document.querySelector(".nav__btn--reset");
+const btnRock = document.querySelector(".nav__btn-rock");
+const btnPaper = document.querySelector(".nav__btn-paper");
+const btnScissors = document.querySelector(".nav__btn-scissors");
+const btnThrow = document.querySelector(".nav__btn-throw");
+const btnReset = document.querySelector(".nav__btn-reset");
 const btnClose = document.querySelector(".btn--close-modal");
 // Labels
 const labelGame = document.querySelector(".game__label");
-const labelName0 = document.querySelector(".player__name--0");
-const labelName1 = document.querySelector(".player__name--1");
-const labelScore0 = document.querySelector(".player__score--0");
-const labelScore1 = document.querySelector(".player__score--1");
+const labelName0 = document.querySelector(".game__content-player-name--0");
+const labelName1 = document.querySelector(".game__content-player-name--1");
+const labelScore0 = document.querySelector(".game__content-player-score--0");
+const labelScore1 = document.querySelector(".game__content-player-score--1");
 // Images
-const imageHand0 = document.querySelector(".player__hand--0");
-const imageHand1 = document.querySelector(".player__hand--1");
+const imageHand0 = document.querySelector(".game__content-player-hand--0");
+const imageHand1 = document.querySelector(".game__content-player-hand--1");
 // Inputs
-const inputRound = document.querySelector(".modal__input--round");
+const inputRound = document.querySelector(".modal__input-round");
 // Parents
+const navHands = document.querySelector(".nav-hands");
 const modal = document.querySelector(".modal");
+const contentModes = document.querySelector(".modal__content-modes");
 const overlay = document.querySelector(".overlay");
-const modalItemModes = document.querySelector(".modal__item--modes");
-const navHands = document.querySelector(".nav--hands");
 
 ////////////////////////////////////////////////
 ////// Global variables
@@ -208,7 +208,7 @@ function calcHand1() {
 ////// Event Handlers
 ///////////////////////////////////////////////
 
-modalItemModes.addEventListener("click", function (e) {
+contentModes.addEventListener("click", function (e) {
   const clicked = e.target;
   if (!clicked) return;
   if (clicked.classList.contains("modal__btn")) {
@@ -236,12 +236,12 @@ btnClose.addEventListener("click", loadGame);
 overlay.addEventListener("click", loadGame);
 
 // --- KEYBOARD SUPPORT ---
-function changePlayerHand(self) {
-  const [...btns] = navHands.querySelectorAll(".nav__btn");
+function changePlayerHand(hand) {
+  const [...btns] = navHands.querySelectorAll(".btn");
   btns.forEach((btn) => btn.classList.remove("btn--active"));
-  self.classList.add("btn--active");
+  hand.classList.add("btn--active");
   currHand0.blur();
-  currHand0 = self;
+  currHand0 = hand;
   updateUI();
 }
 
