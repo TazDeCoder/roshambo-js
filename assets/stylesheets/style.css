@@ -41,6 +41,7 @@ iframe {
 /*
 ================================
  Content
+
 ================================
 */
 
@@ -48,6 +49,7 @@ iframe {
 
 /* Button */
 .btn {
+  cursor: pointer;
   background-color: var(--color-primary-btn);
   border: 2px solid black;
 }
@@ -60,38 +62,27 @@ iframe {
 .btn--active:hover {
   background-color: var(--color-secondary-btn-hover);
 }
-/* Nav */
+.btn--close-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 12px;
+  font-size: 4rem;
+  color: #333;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+/* Navbar */
 .nav {
   display: flex;
   justify-content: center;
-  width: 100%;
-  margin: 5px;
-  font-size: 1rem;
-}
-.nav__btn {
-  width: 30%;
-  padding: 12px;
-  font-size: 1.2em;
 }
 
-@media only screen and (min-width: 499px) {
-  .nav {
-    font-size: 1.2rem;
-  }
-}
 @media only screen and (min-width: 768px) {
   .nav {
     display: inline-flex;
     flex-direction: column;
-    float: right;
-    width: 20%;
-    margin-top: 10%;
-  }
-  .nav__btn {
-    width: 100%;
-  }
-  .nav__input {
-    width: 50%;
   }
 }
 
@@ -100,10 +91,20 @@ iframe {
   visibility: hidden;
   opacity: 0;
 }
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.6);
+}
 
 /* 
- * Main 
  *
+ * Main
  *
  *
  */
@@ -111,29 +112,34 @@ iframe {
 .main {
   width: 100%;
   height: 100%;
-  padding: 5px 0;
   overflow: auto;
+}
+.main__content {
+  height: 100%;
+  padding: 1rem 0;
   font-size: 1rem;
 }
-.main__header {
+.main__content-header {
   width: 100%;
   margin: 12px;
   font-size: 3em;
 }
 
 @media only screen and (min-width: 499px) {
-  .main__header {
+  .main__content-header {
     font-size: 4em;
     text-align: center;
   }
 }
 @media only screen and (min-width: 768px) {
   .main {
-    width: 90%;
-    margin: 0 auto;
     overflow: hidden;
   }
-  .main__header {
+  .main__content {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .main__content-header {
     margin: 12px auto;
     font-size: 6em;
   }
@@ -141,37 +147,41 @@ iframe {
 
 /* 
  *
- * Nav Hands
+ * Main
+ *
+ * * * Nav Hands
  *
  *
  */
 
-.nav--hands .nav__btn {
-  font-weight: 600;
+.nav-hands .btn {
+  width: 30%;
+  padding: 12px;
+  font-size: 1.3rem;
 }
 
 @media only screen and (min-width: 768px) {
-  .nav--hands .nav__btn {
-    margin: 2px auto;
+  .nav-hands {
+    width: 30%;
+    float: right;
+  }
+  .nav-hands .btn {
+    width: 60%;
+    margin: 12px auto;
   }
 }
 
 /* 
  *
- * Game
+ * Main
+ *
+ * * * Game
  *
  *
  */
 
 .game {
   width: 100%;
-  margin-top: 24px;
-  font-size: 1rem;
-}
-.container--players {
-  display: flex;
-  justify-content: center;
-  font-size: 1em;
 }
 .game__label {
   display: block;
@@ -182,56 +192,32 @@ iframe {
   text-align: center;
   background-color: white;
 }
-
-@media only screen and (min-width: 499px) {
-  .container--players {
-    font-size: 1.5em;
-  }
-  .game__label {
-    font-size: 1.6em;
-  }
+.game__content {
+  display: flex;
+  justify-content: center;
+  font-size: 1rem;
 }
-@media only screen and (min-width: 768px) {
-  .container--players {
-    align-items: center;
-    float: left;
-    width: 50%;
-  }
-  .game__label {
-    float: left;
-    width: 50%;
-    margin-left: 12px;
-  }
-}
-
-/* 
- *
- *
- * Player
- *
- */
-
-.player__name {
+.game__content-player-name {
   display: block;
   margin: 0 auto;
   font-size: 1.4em;
   font-weight: 600;
   text-align: center;
 }
-.player__name--0 {
+.game__content-player-name--0 {
   color: red;
 }
-.player__name--1 {
+.game__content-player-name--1 {
   color: #00f;
 }
-.player__score {
+.game__content-player-score {
   display: block;
   margin: 10px auto;
   font-size: 1.4em;
   font-weight: 700;
   text-align: center;
 }
-.player__hand {
+.game__content-player-hand {
   display: block;
   width: 75%;
   margin: 0 auto;
@@ -239,43 +225,66 @@ iframe {
   border-radius: 50%;
 }
 
+@media only screen and (min-width: 499px) {
+  .game__label {
+    font-size: 1.6em;
+  }
+}
 @media only screen and (min-width: 768px) {
-  .player__hand {
+  .game__label {
+    float: left;
+    width: 50%;
+    margin-left: 12px;
+  }
+  .game__content {
+    align-items: center;
+    float: left;
+    width: 50%;
+  }
+  .game__content-player-hand {
     width: 90%;
   }
 }
 
 /* 
  *
- * Nav Options
+ * Main
+ *
+ * * * Nav Options
  *
  *
  */
 
-.nav--options .nav__btn {
+.nav-options .btn {
+  width: 40%;
+  padding: 1rem;
   min-width: 150px;
   max-height: 80px;
-  margin: 2px auto;
-  font-weight: 700;
+  margin: 1rem auto;
+  font-size: 1.3rem;
 }
 
 @media only screen and (min-width: 768px) {
-  .nav--options {
-    margin: 7.5% 15px;
+  .nav-options {
+    width: 20%;
+  }
+  .nav-options .btn {
+    margin: 5px 15px;
   }
 }
 
 /* 
  *
- * Footer
+ * Main
+ *
+ * * * Footer
  *
  *
  */
 
 .footer {
-  margin-top: 22px;
   width: 100%;
-  font-size: 1em;
+  font-size: 1rem;
   text-align: center;
 }
 .footer__link {
@@ -290,7 +299,7 @@ iframe {
 }
 
 @media only screen and (min-width: 499px) {
-  .footer {
+  .footer__link {
     font-size: 1.3em;
   }
 }
@@ -298,30 +307,20 @@ iframe {
   .footer {
     float: right;
     width: 40%;
+    padding: 1rem;
   }
   .footer__link {
-    margin-top: 1rem;
     text-align: center;
   }
 }
 
 /* 
- * Modal
  *
+ * Model
  *
  *
  */
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 5;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(3px);
-  background-color: rgba(0, 0, 0, 0.6);
-}
 .modal {
   position: absolute;
   top: 50%;
@@ -336,34 +335,44 @@ iframe {
   transition: all 700ms;
   transform: translate(-50%, -50%);
 }
-.modal p {
-  display: inline-block;
-  min-width: 15rem;
-  line-height: 1.2;
-  text-align: center;
-}
-.modal ul {
-  width: 50%;
-  margin: 5px auto;
-  line-height: 1.3;
-  font-size: 1.1em;
-  list-style: square;
-}
 .modal__container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 90%;
 }
-.modal__item {
+
+/* 
+ *
+ * Model
+ *
+ * * * Content
+ *
+ *
+ */
+
+.modal__content {
   padding: 5px;
   text-align: center;
 }
-.modal__header {
+.modal__content-text--welcome > p {
+  display: inline-block;
+  min-width: 15rem;
+  line-height: 1.2;
+  text-align: center;
+}
+.modal__content-text--welcome > ul {
+  width: 50%;
+  margin: 5px auto;
+  line-height: 1.3;
+  font-size: 1.1em;
+  list-style: square;
+}
+.modal__content-header {
   margin: 12px auto;
   font-size: 1.2em;
 }
-.modal__label {
+.modal__content-label {
   width: 3rem;
 }
 .modal__btn {
@@ -375,39 +384,25 @@ iframe {
   padding: 5px;
   font-size: 1em;
   text-align: center;
-  background-color: var(--color-primary-btn);
+  background-color: azure;
   border: 2px solid black;
-}
-.btn--close-modal {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 12px;
-  font-size: 4em;
-  color: #333;
-  cursor: pointer;
-  background: none;
-  border: none;
 }
 
 @media only screen and (min-width: 499px) {
-  .modal ul {
-    width: 40%;
-  }
   .modal__container {
     font-size: 1.3em;
   }
-  .modal__header {
+  .modal__content-header {
     min-width: 15rem;
+  }
+  .modal__content-text--welcome ul {
+    width: 40%;
   }
 }
 @media only screen and (min-width: 860px) {
   .modal {
     width: 90%;
     height: 20rem;
-  }
-  .modal ul {
-    width: 90%;
   }
   .modal__container {
     flex-direction: row;
@@ -417,7 +412,10 @@ iframe {
     margin-top: 1rem;
     font-size: 1.4em;
   }
-  .modal__item--modes {
+  .modal__content-text--welcome ul {
+    width: 90%;
+  }
+  .modal__content-modes {
     align-self: center;
     padding-bottom: 5rem;
   }
