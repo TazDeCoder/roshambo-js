@@ -62,28 +62,10 @@ iframe {
 .btn--active:hover {
   background-color: var(--color-secondary-btn-hover);
 }
-.btn--close-modal {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 12px;
-  font-size: 4rem;
-  color: #333;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
 /* Navbar */
 .nav {
   display: flex;
   justify-content: center;
-}
-
-@media only screen and (min-width: 768px) {
-  .nav {
-    display: inline-flex;
-    flex-direction: column;
-  }
 }
 
 /* Class modifiers */
@@ -104,6 +86,36 @@ iframe {
 
 /* 
  *
+ * Head
+ *
+ *
+ */
+
+.head {
+  width: 100%;
+  min-height: 3rem;
+}
+.head__label {
+  margin: 12px;
+  font-size: 3rem;
+}
+
+@media only screen and (min-width: 499px) {
+  .head__label {
+    font-size: 4rem;
+    text-align: center;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .head__label {
+    height: 5rem;
+    margin: 12px auto;
+    font-size: 6rem;
+  }
+}
+
+/* 
+ *
  * Main
  *
  *
@@ -112,36 +124,18 @@ iframe {
 .main {
   width: 100%;
   height: 100%;
-  overflow: auto;
 }
 .main__content {
   height: 100%;
   padding: 1rem 0;
-  font-size: 1rem;
-}
-.main__content-header {
-  width: 100%;
-  margin: 12px;
-  font-size: 3em;
+  overflow: auto;
 }
 
-@media only screen and (min-width: 499px) {
-  .main__content-header {
-    font-size: 4em;
-    text-align: center;
-  }
-}
 @media only screen and (min-width: 768px) {
-  .main {
-    overflow: hidden;
-  }
   .main__content {
     width: 90%;
     margin: 0 auto;
-  }
-  .main__content-header {
-    margin: 12px auto;
-    font-size: 6em;
+    overflow: hidden;
   }
 }
 
@@ -149,23 +143,47 @@ iframe {
  *
  * Main
  *
- * * * Nav Hands
+ * * * Content
  *
  *
  */
 
-.nav-hands .btn {
+.main .content__game {
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .main .content__nav {
+    display: inline-flex;
+    flex-direction: column;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .main .content__nav {
+    width: 30%;
+    float: right;
+  }
+}
+
+/* 
+ *
+ * Main
+ *
+ * * * Content
+ *
+ * * * * * Nav Hands
+ *
+ *
+ */
+
+.main .content .content__nav--hands .nav__btn {
   width: 30%;
   padding: 12px;
   font-size: 1.3rem;
 }
 
 @media only screen and (min-width: 768px) {
-  .nav-hands {
-    width: 30%;
-    float: right;
-  }
-  .nav-hands .btn {
+  .main .content .content__nav--hands .nav__btn {
     width: 60%;
     margin: 12px auto;
   }
@@ -180,44 +198,73 @@ iframe {
  *
  */
 
-.game {
-  width: 100%;
-}
-.game__label {
+.main .game__label {
   display: block;
   width: 90%;
+  min-height: 2rem;
   padding: 5px;
   margin: 12px auto;
   font-weight: 700;
   text-align: center;
   background-color: white;
 }
-.game__content {
+.main .game__content {
   display: flex;
   justify-content: center;
-  font-size: 1rem;
 }
-.game__content-player-name {
+
+@media only screen and (min-width: 499px) {
+  .main .game__label {
+    font-size: 1.6rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .main .game__label {
+    float: left;
+    width: 50%;
+    margin-left: 12px;
+  }
+  .main .game__content {
+    align-items: center;
+    float: left;
+    width: 50%;
+  }
+}
+
+/* 
+ *
+ * Main
+ *
+ * * * Game
+ *
+ * * * * * Content
+ *
+ * * * * * * * Item
+ *
+ *
+ */
+
+.main .game .content .item__label--name {
   display: block;
   margin: 0 auto;
   font-size: 1.4em;
   font-weight: 600;
   text-align: center;
 }
-.game__content-player-name--0 {
+.main .game .content .item__label--name--0 {
   color: red;
 }
-.game__content-player-name--1 {
+.main .game .content .item__label--name--1 {
   color: #00f;
 }
-.game__content-player-score {
+.main .game .content .item__label--score {
   display: block;
   margin: 10px auto;
   font-size: 1.4em;
   font-weight: 700;
   text-align: center;
 }
-.game__content-player-hand {
+.main .game .content .item__img--hand {
   display: block;
   width: 75%;
   margin: 0 auto;
@@ -225,23 +272,8 @@ iframe {
   border-radius: 50%;
 }
 
-@media only screen and (min-width: 499px) {
-  .game__label {
-    font-size: 1.6em;
-  }
-}
 @media only screen and (min-width: 768px) {
-  .game__label {
-    float: left;
-    width: 50%;
-    margin-left: 12px;
-  }
-  .game__content {
-    align-items: center;
-    float: left;
-    width: 50%;
-  }
-  .game__content-player-hand {
+  .main .game .content .item__img--hand {
     width: 90%;
   }
 }
@@ -250,12 +282,14 @@ iframe {
  *
  * Main
  *
- * * * Nav Options
+ * * * Content
+ *
+ * * * * * Nav Options
  *
  *
  */
 
-.nav-options .btn {
+.main .content .content__nav--options .nav__btn {
   width: 40%;
   padding: 1rem;
   min-width: 150px;
@@ -265,58 +299,55 @@ iframe {
 }
 
 @media only screen and (min-width: 768px) {
-  .nav-options {
+  .main .content .content__nav--options {
     width: 20%;
   }
-  .nav-options .btn {
+  .main .content .content__nav--options .nav__btn {
     margin: 5px 15px;
   }
 }
 
 /* 
  *
- * Main
- *
- * * * Footer
+ * Foot
  *
  *
  */
 
-.footer {
+.foot {
   width: 100%;
-  font-size: 1rem;
   text-align: center;
 }
-.footer__link {
+.foot__link {
   padding: 12px;
-  font-size: 1em;
+  font-size: 1rem;
   text-decoration: none;
   color: #333;
 }
-.footer__link:hover {
+.foot__link:hover {
   text-decoration: underline;
   color: rgb(160, 160, 160);
 }
 
 @media only screen and (min-width: 499px) {
-  .footer__link {
-    font-size: 1.3em;
+  .foot__link {
+    font-size: 1.3rem;
   }
 }
 @media only screen and (min-width: 768px) {
-  .footer {
+  .foot {
     float: right;
     width: 40%;
     padding: 1rem;
   }
-  .footer__link {
+  .foot__link {
     text-align: center;
   }
 }
 
 /* 
  *
- * Model
+ * Modal
  *
  *
  */
@@ -327,13 +358,24 @@ iframe {
   left: 50%;
   z-index: 10;
   width: 80%;
-  padding: 16px;
+  padding: 1rem;
   font-size: 1rem;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 48px 80px rgba(0, 0, 0, 0.9);
-  transition: all 700ms;
   transform: translate(-50%, -50%);
+  transition: opacity 700ms;
+}
+.modal__btn--close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 12px;
+  font-size: 4rem;
+  color: #333;
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 .modal__container {
   display: flex;
@@ -342,61 +384,9 @@ iframe {
   height: 90%;
 }
 
-/* 
- *
- * Model
- *
- * * * Content
- *
- *
- */
-
-.modal__content {
-  padding: 5px;
-  text-align: center;
-}
-.modal__content-text--welcome > p {
-  display: inline-block;
-  min-width: 15rem;
-  line-height: 1.2;
-  text-align: center;
-}
-.modal__content-text--welcome > ul {
-  width: 50%;
-  margin: 5px auto;
-  line-height: 1.3;
-  font-size: 1.1em;
-  list-style: square;
-}
-.modal__content-header {
-  margin: 12px auto;
-  font-size: 1.2em;
-}
-.modal__content-label {
-  width: 3rem;
-}
-.modal__btn {
-  padding: 12px;
-  font-size: 1.2em;
-  border: 2px solid black;
-}
-.modal__input {
-  padding: 5px;
-  font-size: 1em;
-  text-align: center;
-  background-color: azure;
-  border: 2px solid black;
-}
-
 @media only screen and (min-width: 499px) {
   .modal__container {
     font-size: 1.3em;
-  }
-  .modal__content-header {
-    min-width: 15rem;
-  }
-  .modal__content-text--welcome ul {
-    width: 40%;
   }
 }
 @media only screen and (min-width: 860px) {
@@ -412,11 +402,89 @@ iframe {
     margin-top: 1rem;
     font-size: 1.4em;
   }
-  .modal__content-text--welcome ul {
-    width: 90%;
+}
+
+/* 
+ *
+ * Model
+ *
+ * * * Container
+ *
+ *
+ */
+
+.modal .container__content {
+  padding: 5px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.modal .container__content--modes {
+  max-width: 21rem;
+}
+
+@media only screen and (min-width: 860px) {
+  .modal .container__content--welcome {
+    max-width: 12rem;
   }
-  .modal__content-modes {
+  .modal .container__content--modes {
     align-self: center;
     padding-bottom: 5rem;
+  }
+}
+
+/* 
+ *
+ * Model
+ *
+ * * * Container
+ *
+ * * * * * Content
+ *
+ *
+ */
+
+.modal .container .content__label {
+  display: inline-block;
+  line-height: 1.2;
+  text-align: center;
+}
+.modal .container .content__label--title {
+  margin: 12px auto;
+  font-size: 1.2em;
+}
+.modal .container .content__label--subtitle {
+  display: block;
+}
+.modal .container .content__list {
+  width: 50%;
+  margin: 5px auto;
+  line-height: 1.3;
+  font-size: 1.1em;
+  list-style: square;
+}
+.modal .container .content__btn {
+  padding: 12px;
+  font-size: 1.2em;
+}
+.modal .container .content__input {
+  padding: 5px;
+  font-size: 1em;
+  text-align: center;
+  background-color: azure;
+  border: 2px solid black;
+}
+
+@media only screen and (min-width: 499px) {
+  .modal .container .content__label--title {
+    min-width: 15rem;
+  }
+  .modal .container .content__list {
+    width: 40%;
+  }
+}
+@media only screen and (min-width: 860px) {
+  .modal .container .content__list {
+    width: 90%;
   }
 }
