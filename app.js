@@ -7,30 +7,32 @@
 // Parents
 const header = document.querySelector(".head");
 const navHands = document.querySelector(".content__nav--hands");
+const navOptions = document.querySelector(".content__nav--options");
+const containerHero = document.querySelector(".content__hero");
 const contentModes = document.querySelector(".container__content--modes");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 // Buttons
-const btnRock = document.querySelector(".nav__btn--rock");
-const btnPaper = document.querySelector(".nav__btn--paper");
-const btnScissors = document.querySelector(".nav__btn--scissors");
-const btnThrow = document.querySelector(".nav__btn--throw");
-const btnReset = document.querySelector(".nav__btn--reset");
-const btnClose = document.querySelector(".modal__btn--close");
+const btnRock = navHands.querySelector(".nav__btn--rock");
+const btnPaper = navHands.querySelector(".nav__btn--paper");
+const btnScissors = navHands.querySelector(".nav__btn--scissors");
+const btnThrow = navOptions.querySelector(".nav__btn--throw");
+const btnReset = navOptions.querySelector(".nav__btn--reset");
+const btnClose = modal.querySelector(".modal__btn--close");
 // Labels
-const labelGame = document.querySelector(".game__label");
-const labelName0 = document.querySelector(".item__label--name--0");
-const labelName1 = document.querySelector(".item__label--name--1");
-const labelScore0 = document.querySelector(".item__label--score--0");
-const labelScore1 = document.querySelector(".item__label--score--1");
+const labelGame = containerHero.querySelector(".game__label");
+const labelName0 = containerHero.querySelector(".item__label--name--0");
+const labelName1 = containerHero.querySelector(".item__label--name--1");
+const labelScore0 = containerHero.querySelector(".item__label--score--0");
+const labelScore1 = containerHero.querySelector(".item__label--score--1");
 // Images
-const imgHand0 = document.querySelector(".item__img--hand--0");
-const imgHand1 = document.querySelector(".item__img--hand--1");
+const imgHand0 = containerHero.querySelector(".item__img--hand--0");
+const imgHand1 = containerHero.querySelector(".item__img--hand--1");
 // Inputs
-const inputRound = document.querySelector(".content__input--rounds");
+const inputRound = modal.querySelector(".content__input--rounds");
 
 ////////////////////////////////////////////////
-////// Global Variables
+////// Data
 ///////////////////////////////////////////////
 
 const winConditions = Object.freeze({
@@ -69,18 +71,20 @@ const winConditions = Object.freeze({
 ///////////////////////////////////////////////
 
 class App {
-  #currHand;
-  #lastHand;
-  #flag;
+  // Config variables
   #mode;
   #rounds;
-  #roundOutcome;
+  // Game variables
   #scores = {};
+  #currHand;
+  #lastHand;
+  #roundOutcome;
+  #flag;
 
   constructor() {
     // Add event handlers
     contentModes.addEventListener("click", this._toggleMode.bind(this));
-    navHands.addEventListener("click", this._togglePlayerHand.bind(this));
+    navHands.addEventListener("click", this._toggleHand.bind(this));
     btnThrow.addEventListener("click", this._updateGame.bind(this));
     btnReset.addEventListener("click", this._init.bind(this));
     btnClose.addEventListener("click", this._loadGame.bind(this));
@@ -96,7 +100,7 @@ class App {
   }
 
   /////////////////////////////////////
-  //////////// User interface
+  //////////// Handler functions
 
   _init() {
     // Reset game values
@@ -123,9 +127,9 @@ class App {
     this.#rounds = +inputRound.value;
     const playerName = prompt("Ready! Enter Player Name:");
     labelName0.textContent = playerName ? playerName : "Player1";
+    header.classList.add("hidden");
     modal.classList.add("hidden");
     overlay.classList.add("hidden");
-    header.classList.add("hidden");
     this._init();
   }
 
@@ -152,7 +156,7 @@ class App {
     }
   }
 
-  _togglePlayerHand(e) {
+  _toggleHand(e) {
     if (this.#flag) return;
     const clicked = e.target;
     if (!clicked) return;
@@ -171,9 +175,6 @@ class App {
         return this._updatePlayerHand(btnScissors);
     }
   }
-
-  /////////////////////////////////////
-  //////////// Logic
 
   _updateGame() {
     let str;
@@ -195,6 +196,9 @@ class App {
       str = str.concat(`${this.#roundOutcome === "player" ? "🧐" : "🤖"} 🏆!`);
     this._updateGameLabel(str);
   }
+
+  /////////////////////////////////////
+  //////////// Game logic
 
   _throwHands(h1, h2) {
     const hands = [h1, h2];
@@ -242,12 +246,13 @@ class App {
         if (this.#lastHand === hands.hand1) idx = i;
       });
       if (this.#roundOutcome === "player") {
-        const arr = new Array(5); // Used for probability
-        arr.fill(this.#lastHand, 0, 2);
-        arr.fill(winConditions.computer[idx]?.hand2, 2);
+        const arr = [];
+        arr[0] = arr[1] = arr[2] = this.#lastHand;
+        arr[3] = arr[4] = winConditions.computer[idx]?.hand2;
         hand = generateRandHand(arr);
       }
     }
+
     const computerHand = !hand ? generateRandHand() : hand;
     imgHand1.src = `./assets/images/hands/${computerHand.value}-left.png`;
     return computerHand;
