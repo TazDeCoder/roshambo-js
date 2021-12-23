@@ -11,7 +11,7 @@ body {
   height: 100%;
 }
 html {
-  font-family: "Lobster", cursive;
+  font-family: "Lobster Two", cursive;
   font-size: 16px;
 }
 body {
@@ -83,28 +83,6 @@ iframe {
   height: 100%;
   backdrop-filter: blur(3px);
   background-color: rgba(0, 0, 0, 0.6);
-}
-
-/* 
- *
- * Head
- *
- *
- */
-
-.head {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  width: 100%;
-  text-align: center;
-  background-color: darkgreen;
-  transition: all 700ms;
-}
-.head__label {
-  margin: 1rem;
-  font-size: 3rem;
 }
 
 /* 
@@ -308,8 +286,6 @@ iframe {
   max-width: 50rem;
   width: 90%;
   padding: 1rem;
-  margin-top: 2rem;
-  font-size: 1rem;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 48px 80px rgba(0, 0, 0, 0.9);
@@ -327,10 +303,7 @@ iframe {
   background: none;
   border: none;
 }
-.modal__btn--close:hover {
-  background: none;
-}
-.modal__container {
+.modal__wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -340,84 +313,81 @@ iframe {
 @media only screen and (min-width: 728px) {
   .modal {
     width: 90%;
-    height: 15rem;
   }
-  .modal__container {
+  .modal__wrapper {
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
     height: 100%;
     padding: 1rem;
-    margin-top: 1rem;
   }
 }
 
 /* 
  *
- * Model
+ * Modal
  *
- * * * Container
+ * * * Wrapper
  *
  *
  */
 
-.modal .container__content {
+.modal .wrapper__content {
   padding: 5px;
   text-align: center;
 }
 
-.modal .container__content--modes {
-  max-width: 20rem;
-  margin: 0 auto;
+@media only screen and (min-width: 728px) {
+  .modal .wrapper__content--modes {
+    order: 2;
+  }
 }
 
 /* 
  *
- * Model
+ * Modal
  *
- * * * Container
+ * * * Wrapper
  *
  * * * * * Content
  *
  *
  */
 
-.modal__container .content__label {
+.modal__wrapper .content__label {
   display: inline-block;
   line-height: 1.2;
   text-align: center;
+  font-weight: 700;
 }
-.modal__container .content__label--title {
+.modal__wrapper .content__label--title {
   display: block;
   margin: 12px auto;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 400;
 }
-.modal__container .content__label--subtitle {
+.modal__wrapper .content__label--subtitle {
   display: block;
-}
-.modal__container .content__list {
-  width: 50%;
   margin: 5px auto;
-  line-height: 1.3;
+  font-weight: 400;
+}
+.modal__wrapper .content__list {
+  max-width: 7rem;
+  width: 70%;
+  margin: 5px auto;
+  line-height: 1.5;
   font-size: 1.1rem;
   list-style: square;
 }
-.modal__container .content__btn {
-  padding: 1rem;
-  font-size: 1.2rem;
+.modal__wrapper .content__btn {
+  padding: 12px;
+  margin: 5px auto;
+  font-size: 1.4rem;
 }
-.modal__container .content__input {
+.modal__wrapper .content__input {
   padding: 5px;
-  font-size: 1em;
+  font-size: 1rem;
   text-align: center;
   background-color: azure;
   border: 2px solid black;
-}
-
-@media only screen and (min-width: 728px) {
-  .modal__container .content__label--title {
-    min-width: 15rem;
-  }
-  .modal__container .content__list {
-    width: 40%;
-  }
 }

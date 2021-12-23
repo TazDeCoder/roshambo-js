@@ -5,11 +5,10 @@
 ///////////////////////////////////////////////
 
 // Parents
-const header = document.querySelector(".head");
 const navHands = document.querySelector(".content__nav--hands");
 const navOptions = document.querySelector(".content__nav--options");
 const containerHero = document.querySelector(".content__hero");
-const contentModes = document.querySelector(".container__content--modes");
+const contentModes = document.querySelector(".wrapper__content--modes");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 // Buttons
@@ -127,7 +126,6 @@ class App {
     this.#rounds = +inputRound.value;
     const playerName = prompt("Ready! Enter Player Name:");
     labelName0.textContent = playerName ? playerName : "Player1";
-    header.classList.add("hidden");
     modal.classList.add("hidden");
     overlay.classList.add("hidden");
     this._init();
@@ -148,8 +146,8 @@ class App {
   _toggleMode(e) {
     const clicked = e.target;
     if (!clicked) return;
-    if (clicked.classList.contains("content__btn")) {
-      const [...btns] = contentModes.querySelectorAll(".content__btn");
+    if (clicked.classList.contains("btn")) {
+      const [...btns] = contentModes.querySelectorAll(".btn");
       btns.forEach((btn) => btn.classList.remove("btn--active"));
       clicked.classList.add("btn--active");
       this.#mode = clicked.value;

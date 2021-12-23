@@ -15,16 +15,13 @@
       href="./assets/stylesheets/style.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <script defer src="./app.js"></script>
     <title>Roshambo</title>
   </head>
   <body>
-    <header class="head">
-      <h1 class="head__label">Roshambo</h1>
-    </header>
     <main class="main">
       <div class="main__content content">
         <!-- Navbar to select hands -->
@@ -42,6 +39,7 @@
             (e)
           </button>
         </nav>
+
         <!-- Displays the game -->
         <section class="content__hero game">
           <p class="game__label"></p>
@@ -64,12 +62,14 @@
             </div>
           </div>
         </section>
+
         <!-- Navbar to select options -->
         <nav class="content__nav content__nav--options nav">
           <button class="nav__btn nav__btn--throw btn"></button>
           <button class="nav__btn nav__btn--reset btn">Reset</button>
         </nav>
       </div>
+
       <footer class="content__foot foot">
         <!-- CREDIT TO VECTOR ARTIST -->
         <a class="foot__link" href="https://www.freepik.com/drawingmydiary"
@@ -77,11 +77,12 @@
         >
       </footer>
     </main>
+
     <!-- Display the start-up game popup -->
     <div class="modal">
-      <button class="modal__btn--close btn">&times;</button>
-      <div class="modal__container container">
-        <section class="container__content container__content--welcome content">
+      <button class="modal__btn--close">&times;</button>
+      <div class="modal__wrapper wrapper">
+        <section class="wrapper__content wrapper__content--welcome content">
           <h1 class="content__label content__label--title">Welcome! 😃</h1>
           <p class="content__label">
             If This is Your First Time, <br />
@@ -93,18 +94,20 @@
             <li class="content__list-item">📰 Beats 🪨</li>
           </ul>
         </section>
-        <section class="container__content container__content--modes content">
+
+        <section class="wrapper__content wrapper__content--modes content">
           <h1 class="content__label content__label--title">
-            Select a Diffculty!
+            Select a Diffculty
           </h1>
-          <button class="btn content__btn content__btn--easy" value="easy">
+          <button class="content__btn content__btn--easy btn" value="easy">
             Easy 👶
           </button>
-          <button class="btn content__btn content__btn--hard" value="hard">
+          <button class="content__btn content__btn--hard btn" value="hard">
             Hard 💪
           </button>
         </section>
-        <section class="container__content container__content--config content">
+
+        <section class="wrapper__content wrapper__content--config content">
           <h1 class="content__label content__label--title">
             Configure Options
           </h1>
