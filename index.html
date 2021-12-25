@@ -15,7 +15,7 @@
       href="./assets/stylesheets/style.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;600;700&display=swap"
       rel="stylesheet"
     />
     <script defer src="./app.js"></script>
@@ -28,15 +28,15 @@
         <nav class="content__nav content__nav--hands nav">
           <button class="nav__btn nav__btn--rock btn btn--active" value="rock">
             🪨 <br />
-            (q)
+            <span class="span--bold">(q)</span>
           </button>
           <button class="nav__btn nav__btn--paper btn" value="paper">
             📰 <br />
-            (w)
+            <span class="span--bold">(w)</span>
           </button>
           <button class="nav__btn nav__btn--scissors btn" value="scissors">
             ✂ <br />
-            (e)
+            <span class="span--bold">(e)</span>
           </button>
         </nav>
 
@@ -65,8 +65,12 @@
 
         <!-- Navbar to select options -->
         <nav class="content__nav content__nav--options nav">
-          <button class="nav__btn nav__btn--throw btn"></button>
-          <button class="nav__btn nav__btn--reset btn">Reset</button>
+          <button class="nav__btn nav__btn--reset btn">
+            <span class="span--bold">Reset</span>
+          </button>
+          <button class="nav__btn nav__btn--throw btn">
+            <span class="span--bold">Throw</span> 👋
+          </button>
         </nav>
       </div>
 
@@ -85,13 +89,19 @@
         <section class="wrapper__content wrapper__content--welcome content">
           <h1 class="content__label content__label--title">Welcome! 😃</h1>
           <p class="content__label">
-            If This is Your First Time, <br />
-            The Rules are Simple!
+            If this is your first time,<br />
+            the rules are simple!
           </p>
           <ul class="content__list">
-            <li class="content__list-item">🪨 Beats ✂</li>
-            <li class="content__list-item">✂ Beats 📰</li>
-            <li class="content__list-item">📰 Beats 🪨</li>
+            <li class="content__list-item">
+              🪨 <span class="span--bold">Beats</span> ✂
+            </li>
+            <li class="content__list-item">
+              ✂ <span class="span--bold">Beats</span> 📰
+            </li>
+            <li class="content__list-item">
+              📰 <span class="span--bold">Beats</span> 🪨
+            </li>
           </ul>
         </section>
 

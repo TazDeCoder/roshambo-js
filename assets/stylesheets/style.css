@@ -11,11 +11,11 @@ body {
   height: 100%;
 }
 html {
-  font-family: "Lobster Two", cursive;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
 }
 body {
-  background-color: #6d8b54;
+  background-color: #27ae60;
 }
 nav,
 button,
@@ -36,6 +36,7 @@ iframe {
   --color-primary-btn-hover: #c5c5c5;
   --color-secondary-btn: #777777;
   --color-secondary-btn-hover: #616161;
+  /* --color-border: #f45e37; */
 }
 
 /*
@@ -47,6 +48,10 @@ iframe {
 
 /* General elements */
 
+/* Span */
+.span--bold {
+  font-weight: 700;
+}
 /* Button */
 .btn {
   cursor: pointer;
@@ -95,6 +100,7 @@ iframe {
 .main {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .main__content {
   width: 100%;
@@ -104,7 +110,7 @@ iframe {
 @media only screen and (min-width: 728px) {
   .main__content {
     width: 90%;
-    margin: 4rem auto;
+    margin: 1rem auto;
   }
 }
 
@@ -132,13 +138,16 @@ iframe {
 @media only screen and (min-width: 728px) {
   .main .content__hero {
     float: left;
-    width: 70%;
+    width: min(70%, 50rem);
   }
   .main .content__nav {
     flex-direction: column;
     align-items: center;
     float: right;
     width: 30%;
+  }
+  .main .content__nav--options {
+    margin-top: 2rem;
   }
 }
 
@@ -155,28 +164,26 @@ iframe {
 
 .content__nav .nav__btn {
   padding: 1rem;
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 .content__nav--hands .nav__btn {
-  flex-grow: 1;
-  font-size: 1.2rem;
+  width: 30%;
+  margin: 0 5px;
 }
 .content__nav--options .nav__btn {
   width: 40%;
   min-width: 2rem;
   max-width: 7rem;
   max-height: 5rem;
-  margin: 1rem auto;
+  margin: 1rem 1rem;
 }
 
 @media only screen and (min-width: 728px) {
   .content__nav .nav__btn {
     max-width: 8rem;
     width: 70%;
-  }
-  .content__nav--options .nav__btn {
-    min-height: 5rem;
-    margin: 0.5rem;
+    height: 6rem;
+    margin: 2px 0;
   }
 }
 
@@ -193,13 +200,16 @@ iframe {
 
 .content__hero .game__label {
   display: block;
-  width: 90%;
+  width: max(80%, 18rem);
+  min-height: 2rem;
   padding: 5px;
-  margin: 0.5rem auto;
-  font-size: 1.4rem;
-  font-weight: 600;
+  margin: 1rem auto;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #f45e37;
   text-align: center;
   background-color: white;
+  border: 2px solid black;
 }
 .content__hero .game__content {
   display: flex;
@@ -224,9 +234,15 @@ iframe {
 .game__content .item__label--name {
   display: block;
   margin: 0 auto;
+  width: max(40%, 7rem);
+  min-height: 2.5rem;
+  padding: 0.5rem;
   font-size: 1.4rem;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 12px;
 }
 .game__content .item__label--name--0 {
   color: red;
@@ -237,7 +253,7 @@ iframe {
 .game__content .item__label--score {
   display: block;
   margin: 10px auto;
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
 }
@@ -245,7 +261,7 @@ iframe {
   display: block;
   width: 90%;
   margin: 0 auto;
-  border: 3px solid #000;
+  border: 2px solid black;
   border-radius: 50%;
 }
 
@@ -262,13 +278,15 @@ iframe {
 
 .content__foot .foot__link {
   padding: 1rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
   text-decoration: none;
   color: #333;
 }
 .content__foot .foot__link:hover {
   text-decoration: underline;
-  color: rgb(160, 160, 160);
+  color: #f45e37;
 }
 
 /* 
@@ -358,18 +376,18 @@ iframe {
   display: inline-block;
   line-height: 1.2;
   text-align: center;
-  font-weight: 700;
+  font-weight: 600;
 }
 .modal__wrapper .content__label--title {
   display: block;
   margin: 12px auto;
   font-size: 1.6rem;
-  font-weight: 400;
+  font-weight: 300;
 }
 .modal__wrapper .content__label--subtitle {
   display: block;
   margin: 5px auto;
-  font-weight: 400;
+  font-weight: 500;
 }
 .modal__wrapper .content__list {
   max-width: 7rem;
@@ -377,12 +395,14 @@ iframe {
   margin: 5px auto;
   line-height: 1.5;
   font-size: 1.1rem;
+  font-weight: 500;
   list-style: square;
 }
 .modal__wrapper .content__btn {
   padding: 12px;
   margin: 5px auto;
   font-size: 1.4rem;
+  font-weight: 500;
 }
 .modal__wrapper .content__input {
   padding: 5px;
