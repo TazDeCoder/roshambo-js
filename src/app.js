@@ -1,5 +1,7 @@
 "use scrict";
 
+import * as images from "./images/*.png";
+
 ////////////////////////////////////////////////
 ////// Selecting HTML Elements
 ///////////////////////////////////////////////
@@ -114,8 +116,8 @@ class App {
     btnScissors.classList.remove("btn--active");
     this._updateGameLabel(`Waiting for ${labelName0.textContent}'s turn...`);
     labelScore0.textContent = labelScore1.textContent = "0";
-    imgHand0.src = `./assets/images/hands/rock-right.png`;
-    imgHand1.src = `./assets/images/hands/default-left.png`;
+    imgHand0.src = `${images["rock-right"]}`;
+    imgHand1.src = `${images["default-left"]}`;
   }
 
   _loadGame() {
@@ -134,7 +136,7 @@ class App {
     hand.classList.add("btn--active");
     this.#currHand.blur();
     this.#currHand = hand;
-    imgHand0.src = `./assets/images/hands/${hand.value}-right.png`;
+    imgHand0.src = `${images[`${hand.value}-right`]}`;
   }
 
   _toggleMode(e) {
@@ -150,14 +152,14 @@ class App {
     if (this.#flag) return;
     const clicked = e.target.closest(".btn");
     if (!clicked) return;
-    imgHand1.src = `./assets/images/hands/default-left.png`;
+    imgHand1.src = `${images["default-left"]}`;
     this._updateGameLabel(`Waiting for ${labelName0.textContent}'s turn...`);
     this._updatePlayerHand(clicked);
   }
 
   _handleKeydownPress(e) {
     if (this.#flag) return;
-    imgHand1.src = `./assets/images/hands/default-left.png`;
+    imgHand1.src = `${images["default-left"]}`;
     this._updateGameLabel(`Waiting for ${labelName0.textContent}'s turn...`);
 
     switch (e.key.toLowerCase()) {
@@ -250,7 +252,7 @@ class App {
     }
 
     const computerHand = !hand ? generateRandHand() : hand;
-    imgHand1.src = `./assets/images/hands/${computerHand.value}-left.png`;
+    imgHand1.src = `${images[`${computerHand.value}-left`]}`;
     return computerHand;
   }
 }

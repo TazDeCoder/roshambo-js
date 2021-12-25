@@ -1,0 +1,27 @@
+{
+  "name": "roshambo",
+  "version": "1.0.0",
+  "description": "Roshambo game application",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarwat-uddin/roshambo-js.git"
+  },
+  "author": "Tarwat Uddin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarwat-uddin/roshambo-js/issues"
+  },
+  "homepage": "https://github.com/tarwat-uddin/roshambo-js#readme",
+  "devDependencies": {
+    "@parcel/resolver-glob": "^2.0.1",
+    "parcel": "^2.0.1"
+  },
+  "dependencies": {
+    "core-js": "^3.20.1"
+  }
+}
