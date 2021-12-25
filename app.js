@@ -112,13 +112,10 @@ class App {
     btnRock.classList.add("btn--active");
     btnPaper.classList.remove("btn--active");
     btnScissors.classList.remove("btn--active");
-    this._updateGameLabel("Select a Hand!");
+    this._updateGameLabel(`Waiting for ${labelName0.textContent}'s turn...`);
     labelScore0.textContent = labelScore1.textContent = "0";
     imgHand0.src = `./assets/images/hands/rock-right.png`;
     imgHand1.src = `./assets/images/hands/default-left.png`;
-    btnThrow.textContent = `Throw 👋 ${btnRock.textContent
-      .slice(0, 15)
-      .concat("(Enter)")}!`;
   }
 
   _loadGame() {
@@ -138,30 +135,31 @@ class App {
     this.#currHand.blur();
     this.#currHand = hand;
     imgHand0.src = `./assets/images/hands/${hand.value}-right.png`;
-    btnThrow.textContent = `Throw 👋 ${hand.textContent
-      .slice(0, 15)
-      .concat("(Enter)")}!`;
   }
 
   _toggleMode(e) {
-    const clicked = e.target;
+    const clicked = e.target.closest(".btn");
     if (!clicked) return;
-    if (clicked.classList.contains("btn")) {
-      const [...btns] = contentModes.querySelectorAll(".btn");
-      btns.forEach((btn) => btn.classList.remove("btn--active"));
-      clicked.classList.add("btn--active");
-      this.#mode = clicked.value;
-    }
+    const [...btns] = contentModes.querySelectorAll(".btn");
+    btns.forEach((btn) => btn.classList.remove("btn--active"));
+    clicked.classList.add("btn--active");
+    this.#mode = clicked.value;
   }
 
   _toggleHand(e) {
     if (this.#flag) return;
-    const clicked = e.target;
+    const clicked = e.target.closest(".btn");
     if (!clicked) return;
+    imgHand1.src = `./assets/images/hands/default-left.png`;
+    this._updateGameLabel(`Waiting for ${labelName0.textContent}'s turn...`);
     this._updatePlayerHand(clicked);
   }
 
   _handleKeydownPress(e) {
+    if (this.#flag) return;
+    imgHand1.src = `./assets/images/hands/default-left.png`;
+    this._updateGameLabel(`Waiting for ${labelName0.textContent}'s turn...`);
+
     switch (e.key.toLowerCase()) {
       case "enter":
         return this._updateGame();
