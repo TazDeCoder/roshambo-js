@@ -8,19 +8,22 @@
 
 ## Description
 
-Player versus CPU where the first to win all rounds wins!
+A JavaScript application based on the Odin Project exercise - **'Rock Paper Scissors'**
 
 **Features:**
 
 - Modern User Interface
 - Intuitive Design
 - Keyboard Support
-- Difficulty Modes
+- Difficulty Mode Selector
 - Round Selector
 
-**TASK-LIST:**
+## What I've Learnt
 
-**_None at the moment, but feel free to suggest any :)_**
++ Listening to user-created events and handling them appropriately
++ Understading event propagation
++ Manipulating the DOM - including CSS classes
++ Dynamically rendering stored images
 
 ## Installation
 
