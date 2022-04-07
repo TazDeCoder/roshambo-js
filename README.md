@@ -1,4 +1,4 @@
-# Roshambo
+# Roshambo JS
 
 ## Screenshots
 
