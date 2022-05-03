@@ -2,9 +2,9 @@
 
 ## Screenshots
 
-![screenshots-0](/screenshots/screenshots-0.png)
-![screenshots-1](/screenshots/screenshots-1.png)
-![screenshots-2](/screenshots/screenshots-2.png)
+![screenshots-0](/public/images/screenshots/screenshots-0.png)
+![screenshots-1](/public/images/screenshots/screenshots-1.png)
+![screenshots-2](/public/images/screenshots/screenshots-2.png)
 
 ## Description
 
@@ -20,10 +20,10 @@ A JavaScript application based on the Odin Project exercise - **'Rock Paper Scis
 
 ## What I've Learnt
 
-+ Listening to user-created events and handling them appropriately
-+ Understading event propagation
-+ Manipulating the DOM - including CSS classes
-+ Dynamically rendering stored images
+- Listening to user-created events and handling them appropriately
+- Understading event propagation
+- Manipulating the DOM - including CSS classes
+- Dynamically rendering stored images
 
 ## Installation
 
