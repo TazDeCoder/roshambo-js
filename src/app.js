@@ -1,7 +1,7 @@
 "use scrict";
 
 import "core-js/stable";
-import * as images from "./images/*.png";
+import * as images from "../public/images/assets/*.png";
 
 ////////////////////////////////////////////////
 ////// Selecting HTML Elements
@@ -10,8 +10,8 @@ import * as images from "./images/*.png";
 // Parents
 const navHands = document.querySelector(".content__nav--hands");
 const navOptions = document.querySelector(".content__nav--options");
-const containerHero = document.querySelector(".content__hero");
-const contentModes = document.querySelector(".wrapper__content--modes");
+const containerHero = document.querySelector(".content__hero--display");
+const contentModes = document.querySelector(".container__content--modes");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 // Buttons
@@ -22,7 +22,7 @@ const btnThrow = navOptions.querySelector(".nav__btn--throw");
 const btnReset = navOptions.querySelector(".nav__btn--reset");
 const btnClose = modal.querySelector(".modal__btn--close");
 // Labels
-const labelGame = containerHero.querySelector(".game__label");
+const labelGame = containerHero.querySelector(".hero__label");
 const labelName0 = containerHero.querySelector(".item__label--name--0");
 const labelName1 = containerHero.querySelector(".item__label--name--1");
 const labelScore0 = containerHero.querySelector(".item__label--score--0");
@@ -118,7 +118,7 @@ class App {
     this._updateGameLabel(`Waiting for ${labelName0.textContent}'s turn...`);
     labelScore0.textContent = labelScore1.textContent = "0";
     imgHand0.src = `${images["rock-right"]}`;
-    imgHand1.src = `${images["default-left"]}`;
+    imgHand1.src = `${images["default"]}`;
   }
 
   _loadGame() {
@@ -153,14 +153,14 @@ class App {
     if (this.#flag) return;
     const clicked = e.target.closest(".btn");
     if (!clicked) return;
-    imgHand1.src = `${images["default-left"]}`;
+    imgHand1.src = `${images["default"]}`;
     this._updateGameLabel(`Waiting for ${labelName0.textContent}'s turn...`);
     this._updatePlayerHand(clicked);
   }
 
   _handleKeydownPress(e) {
     if (this.#flag) return;
-    imgHand1.src = `${images["default-left"]}`;
+    imgHand1.src = `${images["default"]}`;
     this._updateGameLabel(`Waiting for ${labelName0.textContent}'s turn...`);
 
     switch (e.key.toLowerCase()) {

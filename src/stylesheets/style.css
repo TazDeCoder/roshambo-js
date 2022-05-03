@@ -5,16 +5,12 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
 html {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
 }
 body {
+  min-height: 100vh;
   background-color: #27ae60;
 }
 nav,
@@ -80,10 +76,10 @@ iframe {
   opacity: 0;
 }
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 100;
   width: 100%;
   height: 100%;
   backdrop-filter: blur(3px);
@@ -98,53 +94,25 @@ iframe {
  */
 
 .main {
-  width: 100%;
-  height: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
   overflow: hidden;
 }
-.main__content {
-  width: 100%;
-  padding: 0.5rem;
-}
 
 @media only screen and (min-width: 728px) {
-  .main__content {
-    width: 90%;
-    margin: 1rem auto;
-  }
-}
-
-/* 
- *
- * Main
- *
- * * * Content
- *
- *
- */
-
-.main .content__hero {
-  width: 100%;
-  padding: 1rem;
-}
-.main .content__foot {
-  clear: both;
-  width: 100%;
-  height: 3rem;
-  padding: 0.5rem;
-  text-align: center;
-}
-
-@media only screen and (min-width: 728px) {
-  .main .content__hero {
-    float: left;
-    width: min(70%, 50rem);
+  .main {
+    padding: 0.25rem;
+    margin: 0.25rem 0 2rem;
   }
   .main .content__nav {
     flex-direction: column;
     align-items: center;
     float: right;
     width: 30%;
+  }
+  .main .content__hero--display {
+    float: left;
+    width: min(70%, 50rem);
   }
   .main .content__nav--options {
     margin-top: 2rem;
@@ -162,15 +130,15 @@ iframe {
  *
  */
 
-.content__nav .nav__btn {
+.main .content__nav .nav__btn {
   padding: 1rem;
   font-size: 1.4rem;
 }
-.content__nav--hands .nav__btn {
+.main .content__nav--hands .nav__btn {
   width: 30%;
   margin: 0 5px;
 }
-.content__nav--options .nav__btn {
+.main .content__nav--options .nav__btn {
   width: 40%;
   min-width: 2rem;
   max-width: 7rem;
@@ -179,7 +147,7 @@ iframe {
 }
 
 @media only screen and (min-width: 728px) {
-  .content__nav .nav__btn {
+  .main .content__nav .nav__btn {
     max-width: 8rem;
     width: 70%;
     height: 6rem;
@@ -193,12 +161,12 @@ iframe {
  *
  * * * Content
  *
- * * * * * Game
+ * * * * * Hero
  *
  *
  */
 
-.content__hero .game__label {
+.main .content__hero .hero__label {
   display: block;
   width: max(80%, 18rem);
   min-height: 2rem;
@@ -211,7 +179,7 @@ iframe {
   background-color: white;
   border: 2px solid black;
 }
-.content__hero .game__content {
+.main .content__hero .hero__content {
   display: flex;
   justify-content: center;
 }
@@ -222,16 +190,14 @@ iframe {
  *
  * * * Content
  *
- * * * * * Game
+ * * * * * Hero
  *
- * * * * * * * Content
- *
- * * * * * * * * * Item
+ * * * * * * * Game
  *
  *
  */
 
-.game__content .item__label--name {
+.main .content__hero .hero__content--game .item__label--name {
   display: block;
   margin: 0 auto;
   width: max(40%, 7rem);
@@ -244,20 +210,20 @@ iframe {
   border: 2px solid black;
   border-radius: 12px;
 }
-.game__content .item__label--name--0 {
+.main .content__hero .hero__content--game .item__label--name--0 {
   color: red;
 }
-.game__content .item__label--name--1 {
+.main .content__hero .hero__content--game .item__label--name--1 {
   color: blue;
 }
-.game__content .item__label--score {
+.main .content__hero .hero__content--game .item__label--score {
   display: block;
   margin: 10px auto;
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
 }
-.game__content .item__img--hand {
+.main .content__hero .hero__content--game .item__img--hand {
   display: block;
   width: 90%;
   margin: 0 auto;
@@ -267,16 +233,18 @@ iframe {
 
 /* 
  *
- * Main
- *
- * * * Content
- *
- * * * * * Foot
+ * Foot
  *
  *
  */
 
-.content__foot .foot__link {
+.foot {
+  clear: both;
+  width: 100%;
+  margin: 1rem 0;
+  text-align: center;
+}
+.foot .foot__link {
   padding: 1rem;
   font-size: 1rem;
   font-weight: 600;
@@ -284,7 +252,7 @@ iframe {
   text-decoration: none;
   color: #333;
 }
-.content__foot .foot__link:hover {
+.foot .foot__link:hover {
   text-decoration: underline;
   color: var(--color-border);
 }
@@ -297,10 +265,10 @@ iframe {
  */
 
 .modal {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
-  z-index: 10;
+  z-index: 1000;
   max-width: 50rem;
   width: 90%;
   padding: 1rem;
@@ -321,7 +289,7 @@ iframe {
   background: none;
   border: none;
 }
-.modal__wrapper {
+.modal__container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -332,7 +300,7 @@ iframe {
   .modal {
     width: 90%;
   }
-  .modal__wrapper {
+  .modal__container {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -345,18 +313,18 @@ iframe {
  *
  * Modal
  *
- * * * Wrapper
+ * * * Container
  *
  *
  */
 
-.modal .wrapper__content {
+.modal .container__content {
   padding: 5px;
   text-align: center;
 }
 
 @media only screen and (min-width: 728px) {
-  .modal .wrapper__content--modes {
+  .modal .container__content--modes {
     order: 2;
   }
 }
@@ -365,31 +333,31 @@ iframe {
  *
  * Modal
  *
- * * * Wrapper
+ * * * Container
  *
  * * * * * Content
  *
  *
  */
 
-.modal__wrapper .content__label {
+.modal__container .content__label {
   display: inline-block;
   line-height: 1.2;
   text-align: center;
   font-weight: 600;
 }
-.modal__wrapper .content__label--title {
+.modal__container .content__label--title {
   display: block;
   margin: 12px auto;
   font-size: 1.6rem;
   font-weight: 300;
 }
-.modal__wrapper .content__label--subtitle {
+.modal__container .content__label--subtitle {
   display: block;
   margin: 5px auto;
   font-weight: 500;
 }
-.modal__wrapper .content__list {
+.modal__container .content__list {
   max-width: 7rem;
   width: 70%;
   margin: 5px auto;
@@ -398,13 +366,13 @@ iframe {
   font-weight: 500;
   list-style: square;
 }
-.modal__wrapper .content__btn {
+.modal__container .content__btn {
   padding: 12px;
   margin: 5px auto;
   font-size: 1.4rem;
   font-weight: 500;
 }
-.modal__wrapper .content__input {
+.modal__container .content__input {
   padding: 5px;
   font-size: 1rem;
   text-align: center;
