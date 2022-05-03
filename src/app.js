@@ -1,5 +1,6 @@
 "use scrict";
 
+import "core-js/stable";
 import * as images from "./images/*.png";
 
 ////////////////////////////////////////////////

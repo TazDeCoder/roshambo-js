@@ -23,20 +23,20 @@ a {
   min-width: 48px;
   min-height: 48px;
 }
-img,
-embed,
-object,
-video,
+/* prettier-ignore */
+img, embed,
+object, video,
 iframe {
-  max-width: 100%;
-  height: auto;
+   max-width: 100%;
+   height: auto;
 }
+/* CSS VARIABLES */
 :root {
   --color-primary-btn: #e7e7e7;
   --color-primary-btn-hover: #c5c5c5;
   --color-secondary-btn: #777777;
   --color-secondary-btn-hover: #616161;
-  /* --color-border: #f45e37; */
+  --color-border: #f45e37;
 }
 
 /*
@@ -206,7 +206,7 @@ iframe {
   margin: 1rem auto;
   font-size: 1.2rem;
   font-weight: 500;
-  color: #f45e37;
+  color: var(--color-border);
   text-align: center;
   background-color: white;
   border: 2px solid black;
@@ -248,7 +248,7 @@ iframe {
   color: red;
 }
 .game__content .item__label--name--1 {
-  color: #00f;
+  color: blue;
 }
 .game__content .item__label--score {
   display: block;
@@ -286,7 +286,7 @@ iframe {
 }
 .content__foot .foot__link:hover {
   text-decoration: underline;
-  color: #f45e37;
+  color: var(--color-border);
 }
 
 /* 
