@@ -2,9 +2,9 @@
 
 ## Screenshots
 
-<img src="https://user-images.githubusercontent.com/91470221/166501687-369588f8-06ed-42ad-ab95-58def5b33574.png" width="50%" align="left" />
-<img src="https://user-images.githubusercontent.com/91470221/166500696-ce729350-b313-4dc0-8a19-4d8d5420d591.png" width="50%" align="left" /> 
-<img src="https://user-images.githubusercontent.com/91470221/166500702-4bf6a910-724b-4429-becd-04ef58ea78c0.png" width="45%" align="center" />
+<img src="./public/images/screenshots/screenshots-2.png" width="45%" align="left" />
+<img src="./public/images/screenshots/screenshots-0.png" width="50%" align="center" />
+<img src="./public/images/screenshots/screenshots-1.png" width="50%" align="center" /> 
 
 ## Description
 
